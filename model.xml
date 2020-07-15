@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<featureModel>
+	<properties>
+		<graphics key="legendposition" value="1016,285"/>
+		<graphics key="legendautolayout" value="false"/>
+		<graphics key="showshortnames" value="false"/>
+		<graphics key="layout" value="horizontal"/>
+		<graphics key="showcollapsedconstraints" value="true"/>
+		<graphics key="legendhidden" value="false"/>
+		<graphics key="layoutalgorithm" value="1"/>
+	</properties>
+	<struct>
+		<and abstract="true" mandatory="true" name="Smart_university_campus">
+			<graphics key="collapsed" value="false"/>
+			<or abstract="true" mandatory="true" name="systems">
+				<graphics key="collapsed" value="false"/>
+				<feature abstract="true" name="Temperature_monitoring"/>
+				<feature abstract="true" name="Light_monitoring"/>
+				<feature abstract="true" name="Presence_monitoring"/>
+				<feature abstract="true" name="Air_quality_monitoring"/>
+				<feature abstract="true" name="Noise_monitoring"/>
+			</or>
+			<and abstract="true" mandatory="true" name="sensors">
+				<graphics key="collapsed" value="false"/>
+				<feature name="Temperature"/>
+				<feature name="Brightness"/>
+				<feature name="Camera"/>
+				<feature name="PIR"/>
+				<feature name="Air_quality"/>
+				<feature name="Smoke"/>
+				<feature name="Noise"/>
+				<feature name="Humidity"/>
+			</and>
+			<and abstract="true" name="actuators">
+				<graphics key="collapsed" value="false"/>
+				<feature name="Conditioner"/>
+				<feature name="Electrical_light_system"/>
+				<or abstract="true" name="Alarm">
+					<graphics key="collapsed" value="false"/>
+					<feature name="light"/>
+					<feature name="sirena"/>
+				</or>
+			</and>
+		</and>
+	</struct>
+	<constraints>
+		<rule>
+			<description>Per ottenere un sistema di monitoraggio della temperatura è necessario che ci sia un sensore di temp interno e volendo un condizionatore</description>
+			<imp>
+				<var>Temperature_monitoring</var>
+				<disj>
+					<conj>
+						<var>Temperature</var>
+						<var>Conditioner</var>
+					</conj>
+					<var>Humidity</var>
+				</disj>
+			</imp>
+		</rule>
+		<rule>
+			<eq>
+				<var>Light_monitoring</var>
+				<conj>
+					<var>Electrical_light_system</var>
+					<var>Brightness</var>
+				</conj>
+			</eq>
+		</rule>
+		<rule>
+			<imp>
+				<var>Presence_monitoring</var>
+				<conj>
+					<disj>
+						<var>Camera</var>
+						<var>PIR</var>
+					</disj>
+					<var>sirena</var>
+				</conj>
+			</imp>
+		</rule>
+		<rule>
+			<imp>
+				<var>Air_quality_monitoring</var>
+				<conj>
+					<var>Air_quality</var>
+					<conj>
+						<var>Smoke</var>
+						<disj>
+							<var>sirena</var>
+							<var>light</var>
+						</disj>
+					</conj>
+				</conj>
+			</imp>
+		</rule>
+		<rule>
+			<imp>
+				<var>Noise_monitoring</var>
+				<var>Noise</var>
+			</imp>
+		</rule>
+	</constraints>
+</featureModel>

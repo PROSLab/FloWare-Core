@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, user-scalable=0, maximum-scale=1, minimum-scale=1">
+
+  <title>Create a new Application</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css"></script>
+      <script src="https://cdn.rawgit.com/vanderlee/tristate/master/jquery.tristate.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://cdn.rawgit.com/vanderlee/tristate/master/jquery.tristate.js"></script>
+  <script src="configuration.js"></script>
+  <script src="configuration-renderer.js"></script>
+  <script src="constraint-solver.js"></script>
+  <script src="feature.js"></script>
+  <script src="configurator.js"></script>
+  <script src="logic-solver.js"></script>
+  <script src="model.js"></script>
+  <script src="./main.js"></script>
+
+  <script>
+    $(function cliccato () {
+      const {ipcRenderer} = require('electron')
+      const parseString = require('xml2js').parseString;
+      var xml;
+      var sensors = new Array
+      sensors = []
+      var actuators = new Array
+      actuators = []
+      var systems = new Array
+      systems = []
+var totalF=[];
+global.config = [];
+
+      $.get("model.xml", function (data) {
+        xml = data;
+      })
+
+      $("#smartUniv").click(function () {
+        try {
+          window.app = new Configurator(new Model(new XmlModel(xml)), {
+
+            target: $(".configurator"),
+
+            renderer: {
+              renderAround: function (fn) {
+                var html = "<p>This configuration is " + (this.configuration.isValid() ? "valid" : "invalid") +
+                  " and " + (this.configuration.isComplete() ? "complete" : "incomplete") + ".</p>";
+                html += fn();
+                html += '<button  id="exportConfig" class="export" ' + (this.configuration.isComplete() ? "" : "disabled") + '>Export Configuration</button>';
+                return html;
+              },
+
+              afterRender: function () {
+                var self = this;
+                $(".export").click(function () {
+                  $("pre").empty().text(self.configuration.serialize());
+
+                 var myGlobalVariable = self.configuration.serialize();
+                 global.config = myGlobalVariable
+
+
+                //  $("pre").empty().text(self.configuration.serialize());
+                  var selected=[];
+    
+                  
+                var parsed =  new Array 
+                parsed = [];
+                parseString(self.configuration.serialize(), function (err, result) {
+                  console.log(result);
+                  console.log(global.tutteFeatures)
+                  for(var i=0;i<global.tutteFeatures.length;i++){
+                    parsed[i]= result.configuration.feature[i].$;
+                  }
+               console.log(parsed)
+                  for(item in parsed){
+                      if(parsed[item].automatic =="selected" || parsed[item].manual =="selected"){
+                      selected[item] = parsed[item]
+                  }              
+                }
+          
+         
+            totalF = global.tutteFeatures
+              
+            for(x in totalF ) {
+              for(y in selected) {
+                if(totalF[x].parent != null) { //non è la root del sistema
+                //  console.log(totalF[x])
+                  if((selected[y].name == totalF[x].name && totalF[x].parent.name == "sensors") &&(selected[y].automatic =="selected" || selected[y].manual =="selected")){
+                    sensors.push(totalF[x]) //al sensors selected
+                  }
+                 }
+              }
+            }
+           
+
+            for( x in totalF ) {
+              for( y in selected ) {
+                if(totalF[x].parent != null) { //non è la root del sistema
+                //  console.log(totalF[x])
+                  if(selected[y].name == totalF[x].name && totalF[x].parent.name == "actuators" && totalF[x].children==null) {
+                    actuators.push(totalF[x]) //all actuators selected
+                  }
+                  else{
+                    if(selected[y].name == totalF[x].name && totalF[x].parent.name == "actuators" && totalF[x].children != null){ //se ha sotto-figli 
+                      for( z in totalF[x].children ) {
+                        for ( g in selected ) {
+                          console.log(totalF[x].children[z])
+                          console.log(selected[g])
+                        if((totalF[x].children[z].name == selected[g].name) && (selected[g].automatic=="selected" || selected[g].manual=="selected" )){//vado a vedere e prendere quelli selezionati
+                            actuators.push(totalF[x].children[z])
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+
+            console.log(actuators)
+
+            for( x in totalF ) {
+              for( y in selected ) {
+                if(totalF[x].parent != null) { //non è la root del sistema
+                //console.log(totalF[x])
+                  if(selected[y].name == totalF[x].name && totalF[x].parent.name == "systems") {
+                    systems.push(totalF[x]) //all systems selected
+                  }
+                }
+              }
+            }
+          });
+          var n=0;
+          l1=sensors.length
+          l2= actuators.length
+          l3=l1+l2
+          for(var i=l1;i<l3;i++){
+             sensors[i] = actuators[n]
+           n++;
+          }
+        var c = []
+        var aa = global.ruless //regole
+
+        var arrays = JSON.parse(JSON.stringify(sensors));
+ var count=[];
+var rules_present=[];
+var j=0;
+for(var i=0;i<systems.length;i++){
+  for(var j=0;j<aa.length;j++){
+      aa[j] = aa[j].toString()
+      if(aa[j].indexOf(systems[i].name)!=-1){
+            rules_present.push(systems[i].name,aa[j])
+    }
+  }
+}
+console.log(rules_present)
+global.c = []
+global.c = rules_present
+
+
+
+          ipcRenderer.send("setMyGlobalConfiguration",  rules_present ); 
+          ipcRenderer.send("globalconfig", myGlobalVariable);
+          ipcRenderer.send("system_total", systems )   //system scelti
+          ipcRenderer.send("setMyGlobalConfiguration2", arrays );
+
+        },
+      )},
+    }
+  });
+} catch (e) {
+    alert(e);
+  }
+});
+});
+  </script>
+
+
+  <style>
+    body {
+      font-family: Arial;
+    }
+
+    ul {
+      list-style-type: none;
+      user-select: none;
+    }
+
+    pre {
+      white-space: pre-wrap;
+      word-break: keep-all;
+    }
+
+    input[type=xml] {
+      margin-left: 8px;
+      height: 0.95em;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+  </div>
+  <button  id="smartUniv">SMART UNIVERSITY SCENARIO</button>
+  <div class="configurator"></div>
+  <div id="stampare"></div>
+  <pre value="" id="pre1"></pre>
+</body>
+
+</html>
