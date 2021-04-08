@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<featureModel>
+	<properties>
+		<graphics key="legendposition" value="1295,34"/>
+		<graphics key="legendautolayout" value="false"/>
+		<graphics key="showshortnames" value="false"/>
+		<graphics key="layout" value="horizontal"/>
+		<graphics key="showcollapsedconstraints" value="true"/>
+		<graphics key="legendhidden" value="false"/>
+		<graphics key="layoutalgorithm" value="1"/>
+	</properties>
+	<struct>
+		<and abstract="true" mandatory="true" name="Sensor_Actuator">
+			<graphics key="collapsed" value="false"/>
+			<alt abstract="true" mandatory="true" name="Application_protocol">
+				<graphics key="collapsed" value="false"/>
+				<and name="LoRaWan">
+					<feature mandatory="true" name="Appl_key"/>
+					<feature mandatory="true" name="Server_id"/>
+					<feature mandatory="true" name="Device_field"/>
+					<feature mandatory="true" name="Device_id"/>
+				</and>
+				<and name="WebSocket">
+					<feature mandatory="true" name="Server_path"/>
+				</and>
+				<and name="HTTP">
+					<graphics key="collapsed" value="false"/>
+					<feature mandatory="true" name="Path"/>
+					<feature mandatory="true" name="Method"/>
+				</and>
+				<and name="UDP">
+					<feature mandatory="true" name="UDP_port"/>
+				</and>
+				<and name="TCP">
+					<graphics key="collapsed" value="false"/>
+					<feature mandatory="true" name="TCP_port"/>
+				</and>
+				<and name="MQTT">
+					<graphics key="collapsed" value="false"/>
+					<feature mandatory="true" name="Topic"/>
+					<feature mandatory="true" name="QoS"/>
+					<feature mandatory="true" name="Broker_port"/>
+					<feature mandatory="true" name="Broker_name"/>
+				</and>
+			</alt>
+			<alt abstract="true" mandatory="true" name="Data_type">
+				<feature name="Visual"/>
+				<feature name="Boolean"/>
+				<feature name="Numeric"/>
+			</alt>
+			<alt abstract="true" name="Encryption">
+				<feature name="RC4"/>
+				<feature name="AES"/>
+				<feature name="DES"/>
+					<feature name="Rabbit"/>
+				<feature name="TripleDES"/>
+			</alt>
+		</and>
+	</struct>
+</featureModel>
