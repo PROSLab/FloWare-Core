@@ -14,7 +14,7 @@ After cloned the repository, the commands to lunch the component are:
 
 <h3>Usage</h3>
 The FloWare Core component's usage is regarded primarily as the input of the feature models to represent the entire IoT domain.
-We provided the *Test* directory with two examples of the XML models needed to represent the IoT system and represent the IoT devices to import into FloWare Core. The example provided regards a simple *Smart Department's University example scenario*, highlighting different departments' functionalities and associated devices.
+We provided the "Test" directory with two examples of the XML models needed to represent the IoT system and represent the IoT devices to import into FloWare Core. The example provided regards a simple *Smart Department's University example scenario*, highlighting different departments' functionalities and associated devices.
 
 ######
 
