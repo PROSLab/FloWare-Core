@@ -6,10 +6,14 @@ import 'model'
 import 'logic-solver'
 import 'feature' */
 
-const { ipcRenderer } = require('electron')
-const { empty } = require('rxjs')
-const { data } = require('jquery')
-const { NOMEM } = require('dns')
+import * as electron from 'electron';
+
+import { createWindowsInstaller } from 'electron-winstaller';
+import * as express from "express";
+import { ipcRenderer } from 'electron';
+import { empty } from 'rxjs';
+import { data } from 'jquery';
+import { NOMEM } from 'dns';
 var sensors1
 var actuators1
 var elements
@@ -31,7 +35,7 @@ var valid = false;
 global.x__ = 100;
 global.y__ = 100;
 var coll = "#ex"
-const parseString = require('xml2js').parseString;
+import { parseString } from 'xml2js';
 var configuration_complete;
 global.gobal_node = new Array;
 global.mqtt_node = new Array;
@@ -1131,8 +1135,6 @@ function set_websocket(n, yy, element) {
   var code = ""
   var n_ = element.toString()
   code += '<div><label for="exampleInputMqtt">WebSocket node Name<br></label><input type="text" disabled="disabled" class="form-control" id="nodename" aria-describedby="emailHelp" value="' + n_ + '" placeholder="' + n_ + '"></div><br>'
-
-
   code += '<div><label for="exampleInputMqtt">WebSocket Server node Path<br></label><input type="text" class="form-control" id="webpath"  value="" placeholder="Insert path"></div><br>'
   code += '<button onclick="sub_websocket(webpath.value,nodename.value,' + n + ')"  id="se' + n + '" +>Save specifications</button>'
   return config[0].innerHTML += code

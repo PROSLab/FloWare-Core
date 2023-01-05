@@ -1,0 +1,1283 @@
+[
+    {
+        "Description": "",
+        "ID": "139225",
+        "Name": "Smart Campus 2",
+        "Selection": "No Selected",
+        "Type": "Feature"
+    },
+    {
+        "Description": "",
+        "ID": "139228",
+        "Name": "Temperature Management",
+        "Parent": "139362",
+        "Relation": "OR",
+        "Selection": "Selected",
+        "Type": "System"
+    },
+    {
+        "Description": "",
+        "ID": "139231",
+        "Name": "Light Management",
+        "Parent": "139362",
+        "Relation": "OR",
+        "Selection": "Selected",
+        "Type": "System"
+    },
+    {
+        "Description": "",
+        "ID": "139234",
+        "Name": "Smart spaces",
+        "Parent": "139225",
+        "Relation": "Optional",
+        "Selection": "No Selected",
+        "Type": "System"
+    },
+    {
+        "Description": "",
+        "ID": "139237",
+        "Name": "Smart Access Managment",
+        "Parent": "139225",
+        "Relation": "Optional",
+        "Selection": "Selected",
+        "Type": "System"
+    },
+    {
+        "Description": "",
+        "ID": "139240",
+        "Name": "Temperature Controller",
+        "Parent": "139228",
+        "Relation": "OR",
+        "Selection": "Selected",
+        "Type": "System"
+    },
+    {
+        "Description": "",
+        "ID": "139243",
+        "Name": "Humidity Controller",
+        "Parent": "139228",
+        "Relation": "OR",
+        "Selection": "Selected",
+        "Type": "System"
+    },
+    {
+        "Description": "",
+        "ID": "139246",
+        "Name": "Switching",
+        "Parent": "139228",
+        "Relation": "OR",
+        "Selection": "Selected",
+        "Type": "System"
+    },
+    {
+        "Description": "",
+        "ID": "139249",
+        "Name": "Brightness Controller",
+        "Parent": "139231",
+        "Relation": "OR",
+        "Selection": "No Selected",
+        "Type": "System"
+    },
+    {
+        "Description": "",
+        "ID": "139252",
+        "Name": "Switching Light",
+        "Parent": "139231",
+        "Relation": "OR",
+        "Selection": "Selected",
+        "Type": "System"
+    },
+    {
+        "Coverage": "Polygon",
+        "Description": "",
+        "Device number": 1,
+        "Device type": "Sensor",
+        "GeoPoints": "",
+        "ID": "139255",
+        "Name": "Humidity Sensor",
+        "Operations": {
+            "139664": {
+                "Data Type": "Numeric",
+                "Description": "",
+                "ID": "139664",
+                "Operation Name": "getHumidity",
+                "Parent": "139255",
+                "Relation": "Optional",
+                "Selection": "Selected",
+                "Service": "MQTT",
+                "Type": "Operation",
+                "specification": {
+                    "Port": "b",
+                    "QoS": "b",
+                    "Server Broker": "a",
+                    "Topic": "b"
+                }
+            }
+        },
+        "Parent": "139243",
+        "Relation": "Mandatory",
+        "Selection": "Selected",
+        "Type": "Device"
+    },
+    {
+        "Coverage": "Polygon",
+        "Description": "",
+        "Device number": 1,
+        "Device type": "Sensor",
+        "GeoPoints": "",
+        "ID": "139260",
+        "Name": "Temperature Sensor",
+        "Operations": {
+            "139667": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "139667",
+                "Operation Name": "getTemperature",
+                "Parent": "139260",
+                "Relation": "Optional",
+                "Selection": "Selected",
+                "Service": "MQTT",
+                "Type": "Operation",
+                "specification": {
+                    "Port": "",
+                    "QoS": "",
+                    "Server Broker": "",
+                    "Topic": ""
+                }
+            }
+        },
+        "Parent": "139240",
+        "Relation": "Mandatory",
+        "Selection": "Selected",
+        "Type": "Device"
+    },
+    {
+        "Coverage": "Polygon",
+        "Description": "",
+        "Device number": 1,
+        "Device type": "Actuator",
+        "GeoPoints": "",
+        "ID": "139265",
+        "Name": "Radiators",
+        "Operations": {
+            "139678": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "139678",
+                "Operation Name": "TurnON",
+                "Parent": "139265",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "MQTT",
+                "Type": "Operation",
+                "specification": {
+                    "Port": "b",
+                    "QoS": "b",
+                    "Server Broker": "a",
+                    "Topic": "b"
+                }
+            },
+            "139681": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "139681",
+                "Operation Name": "TurnOFF",
+                "Parent": "139265",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "MQTT",
+                "Type": "Operation",
+                "specification": {
+                    "Port": "b",
+                    "QoS": "b",
+                    "Server Broker": "a",
+                    "Topic": "b"
+                }
+            }
+        },
+        "Parent": "139246",
+        "Relation": "OR",
+        "Selection": "No Selected",
+        "Type": "Device"
+    },
+    {
+        "Coverage": "Polygon",
+        "Description": "",
+        "Device number": 1,
+        "Device type": "Actuator",
+        "GeoPoints": "",
+        "ID": "139272",
+        "Name": "Air Conditioner",
+        "Operations": {
+            "139684": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "139684",
+                "Operation Name": "TurnON",
+                "Parent": "139272",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "MQTT",
+                "Type": "Operation",
+                 "specification": {
+                    "Port": "b",
+                    "QoS": "b",
+                    "Server Broker": "a",
+                    "Topic": "b"
+                }
+            },
+            "139687": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "139687",
+                "Operation Name": "TurnOFF",
+                "Parent": "139272",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "MQTT",
+                "Type": "Operation",
+                 "specification": {
+                    "Port": "b",
+                    "QoS": "b",
+                    "Server Broker": "a",
+                    "Topic": "b"
+                }
+            }
+        },
+        "Parent": "139246",
+        "Relation": "OR",
+        "Selection": "Selected",
+        "Type": "Device"
+    },
+    {
+        "Coverage": "Polygon",
+        "Description": "",
+        "Device number": 1,
+        "Device type": "Sensor",
+        "GeoPoints": "",
+        "ID": "139279",
+        "Name": "Brightness Indoor",
+        "Operations": {
+            "139690": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "139690",
+                "Operation Name": "getBrightnessIndoor",
+                "Parent": "139279",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "MQTT",
+                "Type": "Operation",
+                 "specification": {
+                    "Port": "b",
+                    "QoS": "b",
+                    "Server Broker": "a",
+                    "Topic": "b"
+                }
+            }
+        },
+        "Parent": "139249",
+        "Relation": "OR",
+        "Selection": "No Selected",
+        "Type": "Device"
+    },
+    {
+        "Coverage": "Polygon",
+        "Description": "",
+        "Device number": 1,
+        "Device type": "Sensor",
+        "GeoPoints": "",
+        "ID": "139284",
+        "Name": "Brightness Outdoor",
+        "Operations": {
+            "139693": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "139693",
+                "Operation Name": "getBrightnessOutdoor",
+                "Parent": "139284",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "MQTT",
+                "Type": "Operation",
+                 "specification": {
+                    "Port": "b",
+                    "QoS": "b",
+                    "Server Broker": "a",
+                    "Topic": "b"
+                }
+            }
+        },
+        "Parent": "139249",
+        "Relation": "OR",
+        "Selection": "No Selected",
+        "Type": "Device"
+    },
+    {
+        "Coverage": "Polygon",
+        "Description": "",
+        "Device number": 1,
+        "Device type": "Actuator",
+        "GeoPoints": "",
+        "ID": "139289",
+        "Name": "Light System",
+        "Operations": {
+            "139696": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "139696",
+                "Operation Name": "turnON",
+                "Parent": "139289",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "MQTT",
+                "Type": "Operation",
+                 "specification": {
+                    "Port": "b",
+                    "QoS": "b",
+                    "Server Broker": "a",
+                    "Topic": "b"
+                }
+            },
+            "139699": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "139699",
+                "Operation Name": "turnOFF",
+                "Parent": "139289",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "MQTT",
+                "Type": "Operation",
+                 "specification": {
+                    "Port": "b",
+                    "QoS": "b",
+                    "Server Broker": "a",
+                    "Topic": "b"
+                }
+            }
+        },
+        "Parent": "139252",
+        "Relation": "Mandatory",
+        "Selection": "Selected",
+        "Type": "Device"
+    },
+    {
+        "Description": "",
+        "ID": "139296",
+        "Name": "Instruments Monitoring",
+        "Parent": "139234",
+        "Relation": "Mandatory",
+        "Selection": "No Selected",
+        "Type": "System"
+    },
+    {
+        "Coverage": "Polygon",
+        "Description": "",
+        "Device number": 1,
+        "Device type": "Actuator",
+        "GeoPoints": "",
+        "ID": "139299",
+        "Name": "Projector",
+        "Operations": {
+            "139702": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "139702",
+                "Operation Name": "turnON",
+                "Parent": "139299",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "MQTT",
+                "Type": "Operation",
+                 "specification": {
+                    "Port": "b",
+                    "QoS": "b",
+                    "Server Broker": "a",
+                    "Topic": "b"
+                }
+            },
+            "139705": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "139705",
+                "Operation Name": "turnOFF",
+                "Parent": "139299",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "MQTT",
+                "Type": "Operation",
+                 "specification": {
+                    "Port": "b",
+                    "QoS": "b",
+                    "Server Broker": "a",
+                    "Topic": "b"
+                }
+            },
+            "139708": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "139708",
+                "Operation Name": "getState",
+                "Parent": "139299",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "MQTT",
+                "Type": "Operation",
+                 "specification": {
+                    "Port": "b",
+                    "QoS": "b",
+                    "Server Broker": "a",
+                    "Topic": "b"
+                }
+            }
+        },
+        "Parent": "139296",
+        "Relation": "OR",
+        "Selection": "No Selected",
+        "Type": "Device"
+    },
+    {
+        "Coverage": "Polygon",
+        "Description": "",
+        "Device number": 1,
+        "Device type": "Tag",
+        "GeoPoints": "",
+        "ID": "139308",
+        "Name": "LIM",
+        "Operations": {
+            "139711": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "139711",
+                "Operation Name": "getState",
+                "Parent": "139308",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "MQTT",
+                "Type": "Operation",
+                 "specification": {
+                    "Port": "b",
+                    "QoS": "b",
+                    "Server Broker": "a",
+                    "Topic": "b"
+                }
+            },
+            "139714": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "139714",
+                "Operation Name": "turnON",
+                "Parent": "139308",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "MQTT",
+                "Type": "Operation",
+                 "specification": {
+                    "Port": "b",
+                    "QoS": "b",
+                    "Server Broker": "a",
+                    "Topic": "b"
+                }
+            },
+            "139717": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "139717",
+                "Operation Name": "turnOFF",
+                "Parent": "139308",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "MQTT",
+                "Type": "Operation",
+                 "specification": {
+                    "Port": "b",
+                    "QoS": "b",
+                    "Server Broker": "a",
+                    "Topic": "b"
+                }
+            }
+        },
+        "Parent": "139296",
+        "Relation": "OR",
+        "Selection": "No Selected",
+        "Type": "Device"
+    },
+    {
+        "Description": "",
+        "ID": "139317",
+        "Name": "People/Object Identification",
+        "Parent": "139237",
+        "Relation": "OR",
+        "Selection": "Selected",
+        "Type": "System"
+    },
+    {
+        "Coverage": "Polygon",
+        "Description": "",
+        "Device number": 1,
+        "Device type": "Sensor",
+        "GeoPoints": "",
+        "ID": "139320",
+        "Name": "Camera",
+        "Operations": {
+            "139720": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "139720",
+                "Operation Name": "getCamera",
+                "Parent": "139320",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "MQTT",
+                "Type": "Operation",
+                 "specification": {
+                    "Port": "b",
+                    "QoS": "b",
+                    "Server Broker": "a",
+                    "Topic": "b"
+                }
+            }
+        },
+        "Parent": "139317",
+        "Relation": "OR",
+        "Selection": "Selected",
+        "Type": "Device"
+    },
+    {
+        "Coverage": "Polygon",
+        "Description": "",
+        "Device number": 1,
+        "Device type": "Sensor",
+        "GeoPoints": "",
+        "ID": "139325",
+        "Name": "PIR",
+        "Operations": {
+            "139723": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "139723",
+                "Operation Name": "getPIR",
+                "Parent": "139325",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "MQTT",
+                "Type": "Operation",
+                 "specification": {
+                    "Port": "b",
+                    "QoS": "b",
+                    "Server Broker": "a",
+                    "Topic": "b"
+                }
+            }
+        },
+        "Parent": "139317",
+        "Relation": "OR",
+        "Selection": "No Selected",
+        "Type": "Device"
+    },
+    {
+        "Coverage": "Polygon",
+        "Description": "",
+        "Device number": 1,
+        "Device type": "Actuator",
+        "GeoPoints": "",
+        "ID": "139330",
+        "Name": "Access Controller",
+        "Operations": {
+            "139726": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "139726",
+                "Operation Name": "getState",
+                "Parent": "139330",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "MQTT",
+                "Type": "Operation",
+                 "specification": {
+                    "Port": "b",
+                    "QoS": "b",
+                    "Server Broker": "a",
+                    "Topic": "b"
+                }
+            },
+            "139729": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "139729",
+                "Operation Name": "allowAccess",
+                "Parent": "139330",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "MQTT",
+                "Type": "Operation",
+                 "specification": {
+                    "Port": "b",
+                    "QoS": "b",
+                    "Server Broker": "a",
+                    "Topic": "b"
+                }
+            },
+            "139732": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "139732",
+                "Operation Name": "denyAccess",
+                "Parent": "139330",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "MQTT",
+                "Type": "Operation",
+                 "specification": {
+                    "Port": "b",
+                    "QoS": "b",
+                    "Server Broker": "a",
+                    "Topic": "b"
+                }
+            }
+        },
+        "Parent": "139339",
+        "Relation": "OR",
+        "Selection": "Selected",
+        "Type": "Device"
+    },
+    {
+        "Description": "",
+        "ID": "139339",
+        "Name": "Access Control",
+        "Parent": "139237",
+        "Relation": "OR",
+        "Selection": "Selected",
+        "Type": "System"
+    },
+    {
+        "Coverage": "Polygon",
+        "Description": "",
+        "Device number": 1,
+        "Device type": "Actuator",
+        "GeoPoints": "",
+        "ID": "139342",
+        "Name": "Door Controller",
+        "Operations": {
+            "139735": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "139735",
+                "Operation Name": "allowAccess",
+                "Parent": "139342",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "MQTT",
+                "Type": "Operation",
+                 "specification": {
+                    "Port": "b",
+                    "QoS": "b",
+                    "Server Broker": "a",
+                    "Topic": "b"
+                }
+            },
+            "139738": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "139738",
+                "Operation Name": "denyAccess",
+                "Parent": "139342",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "MQTT",
+                "Type": "Operation",
+                 "specification": {
+                    "Port": "b",
+                    "QoS": "b",
+                    "Server Broker": "a",
+                    "Topic": "b"
+                }
+            }
+        },
+        "Parent": "139339",
+        "Relation": "OR",
+        "Selection": "Selected",
+        "Type": "Device"
+    },
+    {
+        "Description": "",
+        "ID": "139349",
+        "Name": "ParkSlot Controller",
+        "Parent": "139237",
+        "Relation": "OR",
+        "Selection": "Selected",
+        "Type": "System"
+    },
+    {
+        "Coverage": "Polygon",
+        "Description": "",
+        "Device number": 1,
+        "Device type": "Sensor",
+        "GeoPoints": "",
+        "ID": "139352",
+        "Name": "Magnetic Sensor",
+        "Operations": {
+            "139741": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "139741",
+                "Operation Name": "getMagneticValue",
+                "Parent": "139352",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "MQTT",
+                "Type": "Operation",
+                 "specification": {
+                    "Port": "b",
+                    "QoS": "b",
+                    "Server Broker": "a",
+                    "Topic": "b"
+                }
+            }
+        },
+        "Parent": "139349",
+        "Relation": "OR",
+        "Selection": "Selected",
+        "Type": "Device"
+    },
+    {
+        "Coverage": "Polygon",
+        "Description": "",
+        "Device number": 1,
+        "Device type": "Sensor",
+        "GeoPoints": "",
+        "ID": "139357",
+        "Name": "Radar Sensor",
+        "Operations": {
+            "139744": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "139744",
+                "Operation Name": "getRadarValue",
+                "Parent": "139357",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "MQTT",
+                "Type": "Operation",
+                 "specification": {
+                    "Port": "b",
+                    "QoS": "b",
+                    "Server Broker": "a",
+                    "Topic": "b"
+                }
+            }
+        },
+        "Parent": "139349",
+        "Relation": "OR",
+        "Selection": "No Selected",
+        "Type": "Device"
+    },
+    {
+        "Description": "",
+        "ID": "139362",
+        "Name": "Environmental Monitoring",
+        "Parent": "139225",
+        "Relation": "Optional",
+        "Selection": "Selected",
+        "Type": "System"
+    },
+    {
+        "Description": "",
+        "ID": "139365",
+        "Name": "Air Quality Man.",
+        "Parent": "139362",
+        "Relation": "OR",
+        "Selection": "Selected",
+        "Type": "System"
+    },
+    {
+        "Description": "",
+        "ID": "139368",
+        "Name": "Fire Detection",
+        "Parent": "139365",
+        "Relation": "OR",
+        "Selection": "Selected",
+        "Type": "System"
+    },
+    {
+        "Coverage": "Polygon",
+        "Description": "",
+        "Device number": 1,
+        "Device type": "Sensor",
+        "GeoPoints": "",
+        "ID": "139371",
+        "Name": "Smoke sensor",
+        "Operations": {
+            "139747": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "139747",
+                "Operation Name": "getSmokeValue",
+                "Parent": "139371",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "MQTT",
+                "Type": "Operation",
+                 "specification": {
+                    "Port": "b",
+                    "QoS": "b",
+                    "Server Broker": "a",
+                    "Topic": "b"
+                }
+            }
+        },
+        "Parent": "139368",
+        "Relation": "OR",
+        "Selection": "Selected",
+        "Type": "Device"
+    },
+    {
+        "Coverage": "Polygon",
+        "Description": "",
+        "Device number": 1,
+        "Device type": "Sensor",
+        "GeoPoints": "",
+        "ID": "139376",
+        "Name": "CO2 Sensor",
+        "Operations": {
+            "139750": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "139750",
+                "Operation Name": "getCO2Value",
+                "Parent": "139376",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "MQTT",
+                "Type": "Operation",
+                 "specification": {
+                    "Port": "b",
+                    "QoS": "b",
+                    "Server Broker": "a",
+                    "Topic": "b"
+                }
+            }
+        },
+        "Parent": "139381",
+        "Relation": "Mandatory",
+        "Selection": "Selected",
+        "Type": "Device"
+    },
+    {
+        "Description": "",
+        "ID": "139381",
+        "Name": "CO2 Detection",
+        "Parent": "139365",
+        "Relation": "OR",
+        "Selection": "Selected",
+        "Type": "System"
+    },
+    {
+        "Coverage": "Polygon",
+        "Description": "",
+        "Device number": 1,
+        "Device type": "Sensor",
+        "GeoPoints": "",
+        "ID": "139384",
+        "Name": "Fire Sensor",
+        "Operations": {
+            "139753": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "139753",
+                "Operation Name": "getFireValue",
+                "Parent": "139384",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "MQTT",
+                "Type": "Operation",
+                 "specification": {
+                    "Port": "b",
+                    "QoS": "b",
+                    "Server Broker": "a",
+                    "Topic": "b"
+                }
+            }
+        },
+        "Parent": "139368",
+        "Relation": "OR",
+        "Selection": "Selected",
+        "Type": "Device"
+    },
+    {
+        "Description": "",
+        "ID": "139389",
+        "Name": "Alarm Management",
+        "Parent": "139225",
+        "Relation": "Optional",
+        "Selection": "Selected",
+        "Type": "System"
+    },
+    {
+        "Description": "",
+        "ID": "139392",
+        "Name": "Alarm",
+        "Parent": "139389",
+        "Relation": "Mandatory",
+        "Selection": "Selected",
+        "Type": "System"
+    },
+    {
+        "Coverage": "Polygon",
+        "Description": "",
+        "Device number": 1,
+        "Device type": "Actuator",
+        "GeoPoints": "",
+        "ID": "139395",
+        "Name": "Sirena",
+        "Operations": {
+            "139756": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "139756",
+                "Operation Name": "turnON",
+                "Parent": "139395",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "MQTT",
+                "Type": "Operation",
+                 "specification": {
+                    "Port": "b",
+                    "QoS": "b",
+                    "Server Broker": "a",
+                    "Topic": "b"
+                }
+            },
+            "139759": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "139759",
+                "Operation Name": "turnOFF",
+                "Parent": "139395",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "MQTT",
+                "Type": "Operation",
+                 "specification": {
+                    "Port": "b",
+                    "QoS": "b",
+                    "Server Broker": "a",
+                    "Topic": "b"
+                }
+            }
+        },
+        "Parent": "139392",
+        "Relation": "OR",
+        "Selection": "Selected",
+        "Type": "Device"
+    },
+    {
+        "Coverage": "Polygon",
+        "Description": "",
+        "Device number": 1,
+        "Device type": "Actuator",
+        "GeoPoints": "",
+        "ID": "139402",
+        "Name": "Light Alarm",
+        "Operations": {
+            "139762": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "139762",
+                "Operation Name": "turnOFF",
+                "Parent": "139402",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "MQTT",
+                "Type": "Operation",
+                 "specification": {
+                    "Port": "b",
+                    "QoS": "b",
+                    "Server Broker": "a",
+                    "Topic": "b"
+                }
+            },
+            "139765": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "139765",
+                "Operation Name": "turnON",
+                "Parent": "139402",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "MQTT",
+                "Type": "Operation",
+                 "specification": {
+                    "Port": "b",
+                    "QoS": "b",
+                    "Server Broker": "a",
+                    "Topic": "b"
+                }
+            }
+        },
+        "Parent": "139392",
+        "Relation": "OR",
+        "Selection": "Selected",
+        "Type": "Device"
+    },
+    {
+        "Coverage": "Polygon",
+        "Description": "",
+        "Device number": 1,
+        "Device type": "Sensor",
+        "GeoPoints": "",
+        "ID": "139409",
+        "Name": "Pc",
+        "Operations": {
+            "139768": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "139768",
+                "Operation Name": "turnON",
+                "Parent": "139409",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "MQTT",
+                "Type": "Operation",
+                 "specification": {
+                    "Port": "b",
+                    "QoS": "b",
+                    "Server Broker": "a",
+                    "Topic": "b"
+                }
+            },
+            "139771": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "139771",
+                "Operation Name": "turnOFF",
+                "Parent": "139409",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "MQTT",
+                "Type": "Operation",
+                 "specification": {
+                    "Port": "b",
+                    "QoS": "b",
+                    "Server Broker": "a",
+                    "Topic": "b"
+                }
+            }
+        },
+        "Parent": "139296",
+        "Relation": "OR",
+        "Selection": "No Selected",
+        "Type": "Device"
+    },
+    {
+        "Description": "",
+        "ID": "139416",
+        "Name": "Waste Managment",
+        "Parent": "139225",
+        "Relation": "Optional",
+        "Selection": "Selected",
+        "Type": "System"
+    },
+    {
+        "Description": "",
+        "ID": "139419",
+        "Name": "Level control",
+        "Parent": "139416",
+        "Relation": "Mandatory",
+        "Selection": "Selected",
+        "Type": "System"
+    },
+    {
+        "Coverage": "Polygon",
+        "Description": "",
+        "Device number": 1,
+        "Device type": "Sensor",
+        "GeoPoints": "",
+        "ID": "139422",
+        "Name": "Bin sensor",
+        "Operations": {
+            "139774": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "139774",
+                "Operation Name": "getBinValue",
+                "Parent": "139422",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "MQTT",
+                "Type": "Operation",
+                 "specification": {
+                    "Port": "b",
+                    "QoS": "b",
+                    "Server Broker": "a",
+                    "Topic": "b"
+                }
+            }
+        },
+        "Parent": "139419",
+        "Relation": "OR",
+        "Selection": "Selected",
+        "Type": "Device"
+    },
+    {
+        "Coverage": "Polygon",
+        "Description": "",
+        "Device number": 1,
+        "Device type": "Sensor",
+        "GeoPoints": "",
+        "ID": "139427",
+        "Name": "Water Sensor",
+        "Operations": {
+            "139777": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "139777",
+                "Operation Name": "getWaterValue",
+                "Parent": "139427",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "MQTT",
+                "Type": "Operation",
+                 "specification": {
+                    "Port": "b",
+                    "QoS": "b",
+                    "Server Broker": "a",
+                    "Topic": "b"
+                }
+            }
+        },
+        "Parent": "139419",
+        "Relation": "OR",
+        "Selection": "Selected",
+        "Type": "Device"
+    },
+    {
+        "Coverage": "Polygon",
+        "Description": "",
+        "Device number": 1,
+        "Device type": "Sensor",
+        "GeoPoints": "",
+        "ID": "139432",
+        "Name": "RFID",
+        "Operations": {
+            "139780": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "139780",
+                "Operation Name": "getValue",
+                "Parent": "139432",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "MQTT",
+                "Type": "Operation",
+                 "specification": {
+                    "Port": "b",
+                    "QoS": "b",
+                    "Server Broker": "a",
+                    "Topic": "b"
+                }
+            }
+        },
+        "Parent": "139317",
+        "Relation": "OR",
+        "Selection": "Selected",
+        "Type": "Device"
+    },
+    {
+        "Coverage": "Polygon",
+        "Description": "",
+        "Device number": 1,
+        "Device type": "Sensor",
+        "GeoPoints": "",
+        "ID": "139437",
+        "Name": "Retina scanner",
+        "Operations": {
+            "139783": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "139783",
+                "Operation Name": "getValue",
+                "Parent": "139437",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "MQTT",
+                "Type": "Operation",
+                 "specification": {
+                    "Port": "b",
+                    "QoS": "b",
+                    "Server Broker": "a",
+                    "Topic": "b"
+                }
+            }
+        },
+        "Parent": "139317",
+        "Relation": "OR",
+        "Selection": "No Selected",
+        "Type": "Device"
+    },
+    {
+        "Coverage": "Polygon",
+        "Description": "",
+        "Device number": 1,
+        "Device type": "Sensor",
+        "GeoPoints": "",
+        "ID": "139442",
+        "Name": "Finger scanner",
+        "Operations": {
+            "139786": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "139786",
+                "Operation Name": "getValue",
+                "Parent": "139442",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "MQTT",
+                "Type": "Operation",
+                 "specification": {
+                    "Port": "b",
+                    "QoS": "b",
+                    "Server Broker": "a",
+                    "Topic": "b"
+                }
+            }
+        },
+        "Parent": "139317",
+        "Relation": "OR",
+        "Selection": "Selected",
+        "Type": "Device"
+    },
+    {
+        "Coverage": "Polygon",
+        "Description": "",
+        "Device number": 1,
+        "Device type": "Actuator",
+        "GeoPoints": "",
+        "ID": "139447",
+        "Name": "Thermostat",
+        "Operations": {
+            "139789": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "139789",
+                "Operation Name": "setValue",
+                "Parent": "139447",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "MQTT",
+                "Type": "Operation",
+                 "specification": {
+                    "Port": "b",
+                    "QoS": "b",
+                    "Server Broker": "a",
+                    "Topic": "b"
+                }
+            }
+        },
+        "Parent": "139246",
+        "Relation": "OR",
+        "Selection": "Selected",
+        "Type": "Device"
+    }
+]

@@ -27,8 +27,10 @@
   <script src="./main.js"></script>
 
   <script>
+
     $(function cliccato () {
-      const {ipcRenderer} = require('electron')
+      
+      const ipcRenderer = window.require('electron').ipcRenderer;
       const parseString = require('xml2js').parseString;
       var xml;
       var sensors = new Array
@@ -42,6 +44,7 @@ global.config = [];
 
       $.get("model.xml", function (data) {
         xml = data;
+        console.log(xml)
       })
 
       $("#smartUniv").click(function () {
