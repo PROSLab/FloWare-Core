@@ -1,4 +1,12 @@
 
+<h2>Prerequisites<h2>
+
+Nodejs: version v14.20.0
+npm: version 7.16.0
+electron: version v22.0.0
+
+
+
 <h2>FloWare Platform</h2>
 
 Is a Javascript software component to support our novel approach **FloWare**.
@@ -19,7 +27,7 @@ The FloWare Platform could be installed on a laptop, raspberry or in the cloud.
 
 After cloned the repository, the commands to lunch the component are:
  1. **npm install**
- 2. **npm run start:electron**
+ 2. **electron . **
 
 
 <h3>Usage</h3>
