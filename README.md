@@ -27,7 +27,7 @@ The FloWare Platform could be installed on a laptop, raspberry or in the cloud.
 
 After cloned the repository, the commands to lunch the component are:
  1. **npm install**
- 2. **electron . **
+ 2. **electron .**
 
 
 <h3>Usage</h3>
