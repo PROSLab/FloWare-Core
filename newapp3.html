@@ -34,12 +34,15 @@
 var totalF=[];
 global.config = [];
 global.json;
+global.psmid 
 
       $("#floware").click(function () {
         try {
         $.get("final_floware.json", function (data) {
         global.json = data;
-        ipcRenderer.send("FloWareConfiguration", global.json); 
+        global.psmid = document.getElementById("psmid").value
+       console.log(document.querySelector('#psmid').value)
+        ipcRenderer.send("FloWareConfiguration", global.json, psmid); 
       })
 } catch (e) {
     alert(e);
@@ -75,6 +78,7 @@ global.json;
   <div>
   </div>
   <button  id="floware">Import from FloWare</button>
+  <input id="psmid"> Insert PSM ID: </input>
   <div class="configurator1"></div>
   <div id="stampare2"></div>
   <pre value="" id="pre"></pre>

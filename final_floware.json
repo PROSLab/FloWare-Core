@@ -1,1281 +1,1240 @@
 [
     {
         "Description": "",
-        "ID": "139225",
-        "Name": "Smart Campus 2",
-        "Selection": "No Selected",
+        "ID": "167403",
+        "Name": "Smart Campus test",
+        "Selection": "Selected",
         "Type": "Feature"
     },
     {
         "Description": "",
-        "ID": "139228",
-        "Name": "Temperature Management",
-        "Parent": "139362",
-        "Relation": "OR",
-        "Selection": "Selected",
-        "Type": "System"
-    },
-    {
-        "Description": "",
-        "ID": "139231",
-        "Name": "Light Management",
-        "Parent": "139362",
-        "Relation": "OR",
-        "Selection": "Selected",
-        "Type": "System"
-    },
-    {
-        "Description": "",
-        "ID": "139234",
-        "Name": "Smart spaces",
-        "Parent": "139225",
+        "ID": "167406",
+        "Name": "Environmental Monitoring",
+        "Parent": "167403",
         "Relation": "Optional",
         "Selection": "No Selected",
         "Type": "System"
     },
     {
         "Description": "",
-        "ID": "139237",
-        "Name": "Smart Access Managment",
-        "Parent": "139225",
+        "ID": "167409",
+        "Name": "Alarm Management",
+        "Parent": "167403",
+        "Relation": "Optional",
+        "Selection": "No Selected",
+        "Type": "System"
+    },
+    {
+        "Description": "",
+        "ID": "167412",
+        "Name": "Access Management",
+        "Parent": "167403",
         "Relation": "Optional",
         "Selection": "Selected",
         "Type": "System"
     },
     {
         "Description": "",
-        "ID": "139240",
+        "ID": "167415",
+        "Name": "Waste Management",
+        "Parent": "167403",
+        "Relation": "Optional",
+        "Selection": "Selected",
+        "Type": "System"
+    },
+    {
+        "Description": "",
+        "ID": "167418",
         "Name": "Temperature Controller",
-        "Parent": "139228",
-        "Relation": "OR",
-        "Selection": "Selected",
-        "Type": "System"
-    },
-    {
-        "Description": "",
-        "ID": "139243",
-        "Name": "Humidity Controller",
-        "Parent": "139228",
-        "Relation": "OR",
-        "Selection": "Selected",
-        "Type": "System"
-    },
-    {
-        "Description": "",
-        "ID": "139246",
-        "Name": "Switching",
-        "Parent": "139228",
-        "Relation": "OR",
-        "Selection": "Selected",
-        "Type": "System"
-    },
-    {
-        "Description": "",
-        "ID": "139249",
-        "Name": "Brightness Controller",
-        "Parent": "139231",
+        "Parent": "167466",
         "Relation": "OR",
         "Selection": "No Selected",
         "Type": "System"
     },
     {
         "Description": "",
-        "ID": "139252",
-        "Name": "Switching Light",
-        "Parent": "139231",
+        "ID": "167421",
+        "Name": "Switching Param",
+        "Parent": "167466",
         "Relation": "OR",
-        "Selection": "Selected",
+        "Selection": "No Selected",
         "Type": "System"
     },
     {
-        "Coverage": "Polygon",
         "Description": "",
-        "Device number": 1,
-        "Device type": "Sensor",
-        "GeoPoints": "",
-        "ID": "139255",
-        "Name": "Humidity Sensor",
-        "Operations": {
-            "139664": {
-                "Data Type": "Numeric",
-                "Description": "",
-                "ID": "139664",
-                "Operation Name": "getHumidity",
-                "Parent": "139255",
-                "Relation": "Optional",
-                "Selection": "Selected",
-                "Service": "MQTT",
-                "Type": "Operation",
-                "specification": {
-                    "Port": "b",
-                    "QoS": "b",
-                    "Server Broker": "a",
-                    "Topic": "b"
-                }
-            }
-        },
-        "Parent": "139243",
-        "Relation": "Mandatory",
-        "Selection": "Selected",
-        "Type": "Device"
+        "ID": "167424",
+        "Name": "Humidity Controller",
+        "Parent": "167466",
+        "Relation": "OR",
+        "Selection": "No Selected",
+        "Type": "System"
     },
     {
-        "Coverage": "Polygon",
         "Description": "",
-        "Device number": 1,
         "Device type": "Sensor",
-        "GeoPoints": "",
-        "ID": "139260",
+        "ID": "167427",
         "Name": "Temperature Sensor",
         "Operations": {
-            "139667": {
+            "167869": {
                 "Data Type": "String",
                 "Description": "",
-                "ID": "139667",
-                "Operation Name": "getTemperature",
-                "Parent": "139260",
+                "ID": "167869",
+                "Operation Name": "getValue",
+                "Parent": "167427",
                 "Relation": "Optional",
-                "Selection": "Selected",
-                "Service": "MQTT",
+                "Selection": "No Selected",
+                "Service": "HTTP",
                 "Type": "Operation",
-                "specification": {
-                    "Port": "",
-                    "QoS": "",
-                    "Server Broker": "",
-                    "Topic": ""
-                }
+                "specification": {"Address": "y",
+                "Method": "",
+                "Port": ""
+            }
             }
         },
-        "Parent": "139240",
+        "Parent": "167418",
         "Relation": "Mandatory",
-        "Selection": "Selected",
+        "Selection": "No Selected",
         "Type": "Device"
     },
     {
-        "Coverage": "Polygon",
         "Description": "",
-        "Device number": 1,
         "Device type": "Actuator",
-        "GeoPoints": "",
-        "ID": "139265",
+        "ID": "167432",
         "Name": "Radiators",
         "Operations": {
-            "139678": {
+            "167872": {
                 "Data Type": "String",
                 "Description": "",
-                "ID": "139678",
-                "Operation Name": "TurnON",
-                "Parent": "139265",
+                "ID": "167872",
+                "Operation Name": "getValue",
+                "Parent": "167432",
                 "Relation": "Optional",
                 "Selection": "No Selected",
-                "Service": "MQTT",
+                "Service": "HTTP",
                 "Type": "Operation",
-                "specification": {
-                    "Port": "b",
-                    "QoS": "b",
-                    "Server Broker": "a",
-                    "Topic": "b"
-                }
+                "specification": {"Address": "y",
+                "Method": "",
+                "Port": ""
+            }
             },
-            "139681": {
+            "167875": {
                 "Data Type": "String",
                 "Description": "",
-                "ID": "139681",
-                "Operation Name": "TurnOFF",
-                "Parent": "139265",
+                "ID": "167875",
+                "Operation Name": "setValue",
+                "Parent": "167432",
                 "Relation": "Optional",
                 "Selection": "No Selected",
-                "Service": "MQTT",
+                "Service": "HTTP",
                 "Type": "Operation",
-                "specification": {
-                    "Port": "b",
-                    "QoS": "b",
-                    "Server Broker": "a",
-                    "Topic": "b"
-                }
+                "specification": {"Address": "y",
+                "Method": "",
+                "Port": ""
+            }
+            },
+            "167878": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "167878",
+                "Operation Name": "TurnOn",
+                "Parent": "167432",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "HTTP",
+                "Type": "Operation",
+                "specification": {"Address": "y",
+                "Method": "",
+                "Port": ""
+            }
+            },
+            "167881": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "167881",
+                "Operation Name": "TurnOff",
+                "Parent": "167432",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "HTTP",
+                "Type": "Operation",
+                "specification": {"Address": "y",
+                "Method": "",
+                "Port": ""
+            }
+            },
+            "167884": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "167884",
+                "Operation Name": "FanSpeed",
+                "Parent": "167432",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "HTTP",
+                "Type": "Operation",
+                "specification": {"Address": "y",
+                "Method": "",
+                "Port": ""
+            }
             }
         },
-        "Parent": "139246",
-        "Relation": "OR",
+        "Parent": "167421",
+        "Relation": "AND",
         "Selection": "No Selected",
         "Type": "Device"
     },
     {
-        "Coverage": "Polygon",
         "Description": "",
-        "Device number": 1,
+        "Device type": "Sensor",
+        "ID": "167445",
+        "Name": "Humidity Sensor",
+        "Operations": {
+            "167887": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "167887",
+                "Operation Name": "getValue",
+                "Parent": "167445",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "HTTP",
+                "Type": "Operation",
+                "specification": {"Address": "y",
+                "Method": "",
+                "Port": ""
+            }
+            }
+        },
+        "Parent": "167424",
+        "Relation": "Mandatory",
+        "Selection": "No Selected",
+        "Type": "Device"
+    },
+    {
+        "Description": "",
         "Device type": "Actuator",
-        "GeoPoints": "",
-        "ID": "139272",
+        "ID": "167450",
         "Name": "Air Conditioner",
         "Operations": {
-            "139684": {
+            "167890": {
                 "Data Type": "String",
                 "Description": "",
-                "ID": "139684",
-                "Operation Name": "TurnON",
-                "Parent": "139272",
-                "Relation": "Optional",
-                "Selection": "No Selected",
-                "Service": "MQTT",
-                "Type": "Operation",
-                 "specification": {
-                    "Port": "b",
-                    "QoS": "b",
-                    "Server Broker": "a",
-                    "Topic": "b"
-                }
-            },
-            "139687": {
-                "Data Type": "String",
-                "Description": "",
-                "ID": "139687",
-                "Operation Name": "TurnOFF",
-                "Parent": "139272",
-                "Relation": "Optional",
-                "Selection": "No Selected",
-                "Service": "MQTT",
-                "Type": "Operation",
-                 "specification": {
-                    "Port": "b",
-                    "QoS": "b",
-                    "Server Broker": "a",
-                    "Topic": "b"
-                }
-            }
-        },
-        "Parent": "139246",
-        "Relation": "OR",
-        "Selection": "Selected",
-        "Type": "Device"
-    },
-    {
-        "Coverage": "Polygon",
-        "Description": "",
-        "Device number": 1,
-        "Device type": "Sensor",
-        "GeoPoints": "",
-        "ID": "139279",
-        "Name": "Brightness Indoor",
-        "Operations": {
-            "139690": {
-                "Data Type": "String",
-                "Description": "",
-                "ID": "139690",
-                "Operation Name": "getBrightnessIndoor",
-                "Parent": "139279",
-                "Relation": "Optional",
-                "Selection": "No Selected",
-                "Service": "MQTT",
-                "Type": "Operation",
-                 "specification": {
-                    "Port": "b",
-                    "QoS": "b",
-                    "Server Broker": "a",
-                    "Topic": "b"
-                }
-            }
-        },
-        "Parent": "139249",
-        "Relation": "OR",
-        "Selection": "No Selected",
-        "Type": "Device"
-    },
-    {
-        "Coverage": "Polygon",
-        "Description": "",
-        "Device number": 1,
-        "Device type": "Sensor",
-        "GeoPoints": "",
-        "ID": "139284",
-        "Name": "Brightness Outdoor",
-        "Operations": {
-            "139693": {
-                "Data Type": "String",
-                "Description": "",
-                "ID": "139693",
-                "Operation Name": "getBrightnessOutdoor",
-                "Parent": "139284",
-                "Relation": "Optional",
-                "Selection": "No Selected",
-                "Service": "MQTT",
-                "Type": "Operation",
-                 "specification": {
-                    "Port": "b",
-                    "QoS": "b",
-                    "Server Broker": "a",
-                    "Topic": "b"
-                }
-            }
-        },
-        "Parent": "139249",
-        "Relation": "OR",
-        "Selection": "No Selected",
-        "Type": "Device"
-    },
-    {
-        "Coverage": "Polygon",
-        "Description": "",
-        "Device number": 1,
-        "Device type": "Actuator",
-        "GeoPoints": "",
-        "ID": "139289",
-        "Name": "Light System",
-        "Operations": {
-            "139696": {
-                "Data Type": "String",
-                "Description": "",
-                "ID": "139696",
+                "ID": "167890",
                 "Operation Name": "turnON",
-                "Parent": "139289",
+                "Parent": "167450",
                 "Relation": "Optional",
                 "Selection": "No Selected",
-                "Service": "MQTT",
+                "Service": "HTTP",
                 "Type": "Operation",
-                 "specification": {
-                    "Port": "b",
-                    "QoS": "b",
-                    "Server Broker": "a",
-                    "Topic": "b"
-                }
+                "specification": {"Address": "y",
+                "Method": "",
+                "Port": ""
+            }
             },
-            "139699": {
+            "167893": {
                 "Data Type": "String",
                 "Description": "",
-                "ID": "139699",
+                "ID": "167893",
                 "Operation Name": "turnOFF",
-                "Parent": "139289",
+                "Parent": "167450",
                 "Relation": "Optional",
                 "Selection": "No Selected",
-                "Service": "MQTT",
+                "Service": "HTTP",
                 "Type": "Operation",
-                 "specification": {
-                    "Port": "b",
-                    "QoS": "b",
-                    "Server Broker": "a",
-                    "Topic": "b"
-                }
+                "specification": {"Address": "y",
+                "Method": "",
+                "Port": ""
+            }
+            },
+            "167896": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "167896",
+                "Operation Name": "setValue",
+                "Parent": "167450",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "HTTP",
+                "Type": "Operation",
+                "specification": {"Address": "y",
+                "Method": "",
+                "Port": ""
+            }
             }
         },
-        "Parent": "139252",
-        "Relation": "Mandatory",
-        "Selection": "Selected",
+        "Parent": "167421",
+        "Relation": "AND",
+        "Selection": "No Selected",
         "Type": "Device"
     },
     {
         "Description": "",
-        "ID": "139296",
-        "Name": "Instruments Monitoring",
-        "Parent": "139234",
-        "Relation": "Mandatory",
-        "Selection": "No Selected",
-        "Type": "System"
-    },
-    {
-        "Coverage": "Polygon",
-        "Description": "",
-        "Device number": 1,
         "Device type": "Actuator",
-        "GeoPoints": "",
-        "ID": "139299",
-        "Name": "Projector",
-        "Operations": {
-            "139702": {
-                "Data Type": "String",
-                "Description": "",
-                "ID": "139702",
-                "Operation Name": "turnON",
-                "Parent": "139299",
-                "Relation": "Optional",
-                "Selection": "No Selected",
-                "Service": "MQTT",
-                "Type": "Operation",
-                 "specification": {
-                    "Port": "b",
-                    "QoS": "b",
-                    "Server Broker": "a",
-                    "Topic": "b"
-                }
-            },
-            "139705": {
-                "Data Type": "String",
-                "Description": "",
-                "ID": "139705",
-                "Operation Name": "turnOFF",
-                "Parent": "139299",
-                "Relation": "Optional",
-                "Selection": "No Selected",
-                "Service": "MQTT",
-                "Type": "Operation",
-                 "specification": {
-                    "Port": "b",
-                    "QoS": "b",
-                    "Server Broker": "a",
-                    "Topic": "b"
-                }
-            },
-            "139708": {
-                "Data Type": "String",
-                "Description": "",
-                "ID": "139708",
-                "Operation Name": "getState",
-                "Parent": "139299",
-                "Relation": "Optional",
-                "Selection": "No Selected",
-                "Service": "MQTT",
-                "Type": "Operation",
-                 "specification": {
-                    "Port": "b",
-                    "QoS": "b",
-                    "Server Broker": "a",
-                    "Topic": "b"
-                }
-            }
-        },
-        "Parent": "139296",
-        "Relation": "OR",
-        "Selection": "No Selected",
-        "Type": "Device"
-    },
-    {
-        "Coverage": "Polygon",
-        "Description": "",
-        "Device number": 1,
-        "Device type": "Tag",
-        "GeoPoints": "",
-        "ID": "139308",
-        "Name": "LIM",
-        "Operations": {
-            "139711": {
-                "Data Type": "String",
-                "Description": "",
-                "ID": "139711",
-                "Operation Name": "getState",
-                "Parent": "139308",
-                "Relation": "Optional",
-                "Selection": "No Selected",
-                "Service": "MQTT",
-                "Type": "Operation",
-                 "specification": {
-                    "Port": "b",
-                    "QoS": "b",
-                    "Server Broker": "a",
-                    "Topic": "b"
-                }
-            },
-            "139714": {
-                "Data Type": "String",
-                "Description": "",
-                "ID": "139714",
-                "Operation Name": "turnON",
-                "Parent": "139308",
-                "Relation": "Optional",
-                "Selection": "No Selected",
-                "Service": "MQTT",
-                "Type": "Operation",
-                 "specification": {
-                    "Port": "b",
-                    "QoS": "b",
-                    "Server Broker": "a",
-                    "Topic": "b"
-                }
-            },
-            "139717": {
-                "Data Type": "String",
-                "Description": "",
-                "ID": "139717",
-                "Operation Name": "turnOFF",
-                "Parent": "139308",
-                "Relation": "Optional",
-                "Selection": "No Selected",
-                "Service": "MQTT",
-                "Type": "Operation",
-                 "specification": {
-                    "Port": "b",
-                    "QoS": "b",
-                    "Server Broker": "a",
-                    "Topic": "b"
-                }
-            }
-        },
-        "Parent": "139296",
-        "Relation": "OR",
-        "Selection": "No Selected",
-        "Type": "Device"
-    },
-    {
-        "Description": "",
-        "ID": "139317",
-        "Name": "People/Object Identification",
-        "Parent": "139237",
-        "Relation": "OR",
-        "Selection": "Selected",
-        "Type": "System"
-    },
-    {
-        "Coverage": "Polygon",
-        "Description": "",
-        "Device number": 1,
-        "Device type": "Sensor",
-        "GeoPoints": "",
-        "ID": "139320",
-        "Name": "Camera",
-        "Operations": {
-            "139720": {
-                "Data Type": "String",
-                "Description": "",
-                "ID": "139720",
-                "Operation Name": "getCamera",
-                "Parent": "139320",
-                "Relation": "Optional",
-                "Selection": "No Selected",
-                "Service": "MQTT",
-                "Type": "Operation",
-                 "specification": {
-                    "Port": "b",
-                    "QoS": "b",
-                    "Server Broker": "a",
-                    "Topic": "b"
-                }
-            }
-        },
-        "Parent": "139317",
-        "Relation": "OR",
-        "Selection": "Selected",
-        "Type": "Device"
-    },
-    {
-        "Coverage": "Polygon",
-        "Description": "",
-        "Device number": 1,
-        "Device type": "Sensor",
-        "GeoPoints": "",
-        "ID": "139325",
-        "Name": "PIR",
-        "Operations": {
-            "139723": {
-                "Data Type": "String",
-                "Description": "",
-                "ID": "139723",
-                "Operation Name": "getPIR",
-                "Parent": "139325",
-                "Relation": "Optional",
-                "Selection": "No Selected",
-                "Service": "MQTT",
-                "Type": "Operation",
-                 "specification": {
-                    "Port": "b",
-                    "QoS": "b",
-                    "Server Broker": "a",
-                    "Topic": "b"
-                }
-            }
-        },
-        "Parent": "139317",
-        "Relation": "OR",
-        "Selection": "No Selected",
-        "Type": "Device"
-    },
-    {
-        "Coverage": "Polygon",
-        "Description": "",
-        "Device number": 1,
-        "Device type": "Actuator",
-        "GeoPoints": "",
-        "ID": "139330",
-        "Name": "Access Controller",
-        "Operations": {
-            "139726": {
-                "Data Type": "String",
-                "Description": "",
-                "ID": "139726",
-                "Operation Name": "getState",
-                "Parent": "139330",
-                "Relation": "Optional",
-                "Selection": "No Selected",
-                "Service": "MQTT",
-                "Type": "Operation",
-                 "specification": {
-                    "Port": "b",
-                    "QoS": "b",
-                    "Server Broker": "a",
-                    "Topic": "b"
-                }
-            },
-            "139729": {
-                "Data Type": "String",
-                "Description": "",
-                "ID": "139729",
-                "Operation Name": "allowAccess",
-                "Parent": "139330",
-                "Relation": "Optional",
-                "Selection": "No Selected",
-                "Service": "MQTT",
-                "Type": "Operation",
-                 "specification": {
-                    "Port": "b",
-                    "QoS": "b",
-                    "Server Broker": "a",
-                    "Topic": "b"
-                }
-            },
-            "139732": {
-                "Data Type": "String",
-                "Description": "",
-                "ID": "139732",
-                "Operation Name": "denyAccess",
-                "Parent": "139330",
-                "Relation": "Optional",
-                "Selection": "No Selected",
-                "Service": "MQTT",
-                "Type": "Operation",
-                 "specification": {
-                    "Port": "b",
-                    "QoS": "b",
-                    "Server Broker": "a",
-                    "Topic": "b"
-                }
-            }
-        },
-        "Parent": "139339",
-        "Relation": "OR",
-        "Selection": "Selected",
-        "Type": "Device"
-    },
-    {
-        "Description": "",
-        "ID": "139339",
-        "Name": "Access Control",
-        "Parent": "139237",
-        "Relation": "OR",
-        "Selection": "Selected",
-        "Type": "System"
-    },
-    {
-        "Coverage": "Polygon",
-        "Description": "",
-        "Device number": 1,
-        "Device type": "Actuator",
-        "GeoPoints": "",
-        "ID": "139342",
-        "Name": "Door Controller",
-        "Operations": {
-            "139735": {
-                "Data Type": "String",
-                "Description": "",
-                "ID": "139735",
-                "Operation Name": "allowAccess",
-                "Parent": "139342",
-                "Relation": "Optional",
-                "Selection": "No Selected",
-                "Service": "MQTT",
-                "Type": "Operation",
-                 "specification": {
-                    "Port": "b",
-                    "QoS": "b",
-                    "Server Broker": "a",
-                    "Topic": "b"
-                }
-            },
-            "139738": {
-                "Data Type": "String",
-                "Description": "",
-                "ID": "139738",
-                "Operation Name": "denyAccess",
-                "Parent": "139342",
-                "Relation": "Optional",
-                "Selection": "No Selected",
-                "Service": "MQTT",
-                "Type": "Operation",
-                 "specification": {
-                    "Port": "b",
-                    "QoS": "b",
-                    "Server Broker": "a",
-                    "Topic": "b"
-                }
-            }
-        },
-        "Parent": "139339",
-        "Relation": "OR",
-        "Selection": "Selected",
-        "Type": "Device"
-    },
-    {
-        "Description": "",
-        "ID": "139349",
-        "Name": "ParkSlot Controller",
-        "Parent": "139237",
-        "Relation": "OR",
-        "Selection": "Selected",
-        "Type": "System"
-    },
-    {
-        "Coverage": "Polygon",
-        "Description": "",
-        "Device number": 1,
-        "Device type": "Sensor",
-        "GeoPoints": "",
-        "ID": "139352",
-        "Name": "Magnetic Sensor",
-        "Operations": {
-            "139741": {
-                "Data Type": "String",
-                "Description": "",
-                "ID": "139741",
-                "Operation Name": "getMagneticValue",
-                "Parent": "139352",
-                "Relation": "Optional",
-                "Selection": "No Selected",
-                "Service": "MQTT",
-                "Type": "Operation",
-                 "specification": {
-                    "Port": "b",
-                    "QoS": "b",
-                    "Server Broker": "a",
-                    "Topic": "b"
-                }
-            }
-        },
-        "Parent": "139349",
-        "Relation": "OR",
-        "Selection": "Selected",
-        "Type": "Device"
-    },
-    {
-        "Coverage": "Polygon",
-        "Description": "",
-        "Device number": 1,
-        "Device type": "Sensor",
-        "GeoPoints": "",
-        "ID": "139357",
-        "Name": "Radar Sensor",
-        "Operations": {
-            "139744": {
-                "Data Type": "String",
-                "Description": "",
-                "ID": "139744",
-                "Operation Name": "getRadarValue",
-                "Parent": "139357",
-                "Relation": "Optional",
-                "Selection": "No Selected",
-                "Service": "MQTT",
-                "Type": "Operation",
-                 "specification": {
-                    "Port": "b",
-                    "QoS": "b",
-                    "Server Broker": "a",
-                    "Topic": "b"
-                }
-            }
-        },
-        "Parent": "139349",
-        "Relation": "OR",
-        "Selection": "No Selected",
-        "Type": "Device"
-    },
-    {
-        "Description": "",
-        "ID": "139362",
-        "Name": "Environmental Monitoring",
-        "Parent": "139225",
-        "Relation": "Optional",
-        "Selection": "Selected",
-        "Type": "System"
-    },
-    {
-        "Description": "",
-        "ID": "139365",
-        "Name": "Air Quality Man.",
-        "Parent": "139362",
-        "Relation": "OR",
-        "Selection": "Selected",
-        "Type": "System"
-    },
-    {
-        "Description": "",
-        "ID": "139368",
-        "Name": "Fire Detection",
-        "Parent": "139365",
-        "Relation": "OR",
-        "Selection": "Selected",
-        "Type": "System"
-    },
-    {
-        "Coverage": "Polygon",
-        "Description": "",
-        "Device number": 1,
-        "Device type": "Sensor",
-        "GeoPoints": "",
-        "ID": "139371",
-        "Name": "Smoke sensor",
-        "Operations": {
-            "139747": {
-                "Data Type": "String",
-                "Description": "",
-                "ID": "139747",
-                "Operation Name": "getSmokeValue",
-                "Parent": "139371",
-                "Relation": "Optional",
-                "Selection": "No Selected",
-                "Service": "MQTT",
-                "Type": "Operation",
-                 "specification": {
-                    "Port": "b",
-                    "QoS": "b",
-                    "Server Broker": "a",
-                    "Topic": "b"
-                }
-            }
-        },
-        "Parent": "139368",
-        "Relation": "OR",
-        "Selection": "Selected",
-        "Type": "Device"
-    },
-    {
-        "Coverage": "Polygon",
-        "Description": "",
-        "Device number": 1,
-        "Device type": "Sensor",
-        "GeoPoints": "",
-        "ID": "139376",
-        "Name": "CO2 Sensor",
-        "Operations": {
-            "139750": {
-                "Data Type": "String",
-                "Description": "",
-                "ID": "139750",
-                "Operation Name": "getCO2Value",
-                "Parent": "139376",
-                "Relation": "Optional",
-                "Selection": "No Selected",
-                "Service": "MQTT",
-                "Type": "Operation",
-                 "specification": {
-                    "Port": "b",
-                    "QoS": "b",
-                    "Server Broker": "a",
-                    "Topic": "b"
-                }
-            }
-        },
-        "Parent": "139381",
-        "Relation": "Mandatory",
-        "Selection": "Selected",
-        "Type": "Device"
-    },
-    {
-        "Description": "",
-        "ID": "139381",
-        "Name": "CO2 Detection",
-        "Parent": "139365",
-        "Relation": "OR",
-        "Selection": "Selected",
-        "Type": "System"
-    },
-    {
-        "Coverage": "Polygon",
-        "Description": "",
-        "Device number": 1,
-        "Device type": "Sensor",
-        "GeoPoints": "",
-        "ID": "139384",
-        "Name": "Fire Sensor",
-        "Operations": {
-            "139753": {
-                "Data Type": "String",
-                "Description": "",
-                "ID": "139753",
-                "Operation Name": "getFireValue",
-                "Parent": "139384",
-                "Relation": "Optional",
-                "Selection": "No Selected",
-                "Service": "MQTT",
-                "Type": "Operation",
-                 "specification": {
-                    "Port": "b",
-                    "QoS": "b",
-                    "Server Broker": "a",
-                    "Topic": "b"
-                }
-            }
-        },
-        "Parent": "139368",
-        "Relation": "OR",
-        "Selection": "Selected",
-        "Type": "Device"
-    },
-    {
-        "Description": "",
-        "ID": "139389",
-        "Name": "Alarm Management",
-        "Parent": "139225",
-        "Relation": "Optional",
-        "Selection": "Selected",
-        "Type": "System"
-    },
-    {
-        "Description": "",
-        "ID": "139392",
-        "Name": "Alarm",
-        "Parent": "139389",
-        "Relation": "Mandatory",
-        "Selection": "Selected",
-        "Type": "System"
-    },
-    {
-        "Coverage": "Polygon",
-        "Description": "",
-        "Device number": 1,
-        "Device type": "Actuator",
-        "GeoPoints": "",
-        "ID": "139395",
-        "Name": "Sirena",
-        "Operations": {
-            "139756": {
-                "Data Type": "String",
-                "Description": "",
-                "ID": "139756",
-                "Operation Name": "turnON",
-                "Parent": "139395",
-                "Relation": "Optional",
-                "Selection": "No Selected",
-                "Service": "MQTT",
-                "Type": "Operation",
-                 "specification": {
-                    "Port": "b",
-                    "QoS": "b",
-                    "Server Broker": "a",
-                    "Topic": "b"
-                }
-            },
-            "139759": {
-                "Data Type": "String",
-                "Description": "",
-                "ID": "139759",
-                "Operation Name": "turnOFF",
-                "Parent": "139395",
-                "Relation": "Optional",
-                "Selection": "No Selected",
-                "Service": "MQTT",
-                "Type": "Operation",
-                 "specification": {
-                    "Port": "b",
-                    "QoS": "b",
-                    "Server Broker": "a",
-                    "Topic": "b"
-                }
-            }
-        },
-        "Parent": "139392",
-        "Relation": "OR",
-        "Selection": "Selected",
-        "Type": "Device"
-    },
-    {
-        "Coverage": "Polygon",
-        "Description": "",
-        "Device number": 1,
-        "Device type": "Actuator",
-        "GeoPoints": "",
-        "ID": "139402",
-        "Name": "Light Alarm",
-        "Operations": {
-            "139762": {
-                "Data Type": "String",
-                "Description": "",
-                "ID": "139762",
-                "Operation Name": "turnOFF",
-                "Parent": "139402",
-                "Relation": "Optional",
-                "Selection": "No Selected",
-                "Service": "MQTT",
-                "Type": "Operation",
-                 "specification": {
-                    "Port": "b",
-                    "QoS": "b",
-                    "Server Broker": "a",
-                    "Topic": "b"
-                }
-            },
-            "139765": {
-                "Data Type": "String",
-                "Description": "",
-                "ID": "139765",
-                "Operation Name": "turnON",
-                "Parent": "139402",
-                "Relation": "Optional",
-                "Selection": "No Selected",
-                "Service": "MQTT",
-                "Type": "Operation",
-                 "specification": {
-                    "Port": "b",
-                    "QoS": "b",
-                    "Server Broker": "a",
-                    "Topic": "b"
-                }
-            }
-        },
-        "Parent": "139392",
-        "Relation": "OR",
-        "Selection": "Selected",
-        "Type": "Device"
-    },
-    {
-        "Coverage": "Polygon",
-        "Description": "",
-        "Device number": 1,
-        "Device type": "Sensor",
-        "GeoPoints": "",
-        "ID": "139409",
-        "Name": "Pc",
-        "Operations": {
-            "139768": {
-                "Data Type": "String",
-                "Description": "",
-                "ID": "139768",
-                "Operation Name": "turnON",
-                "Parent": "139409",
-                "Relation": "Optional",
-                "Selection": "No Selected",
-                "Service": "MQTT",
-                "Type": "Operation",
-                 "specification": {
-                    "Port": "b",
-                    "QoS": "b",
-                    "Server Broker": "a",
-                    "Topic": "b"
-                }
-            },
-            "139771": {
-                "Data Type": "String",
-                "Description": "",
-                "ID": "139771",
-                "Operation Name": "turnOFF",
-                "Parent": "139409",
-                "Relation": "Optional",
-                "Selection": "No Selected",
-                "Service": "MQTT",
-                "Type": "Operation",
-                 "specification": {
-                    "Port": "b",
-                    "QoS": "b",
-                    "Server Broker": "a",
-                    "Topic": "b"
-                }
-            }
-        },
-        "Parent": "139296",
-        "Relation": "OR",
-        "Selection": "No Selected",
-        "Type": "Device"
-    },
-    {
-        "Description": "",
-        "ID": "139416",
-        "Name": "Waste Managment",
-        "Parent": "139225",
-        "Relation": "Optional",
-        "Selection": "Selected",
-        "Type": "System"
-    },
-    {
-        "Description": "",
-        "ID": "139419",
-        "Name": "Level control",
-        "Parent": "139416",
-        "Relation": "Mandatory",
-        "Selection": "Selected",
-        "Type": "System"
-    },
-    {
-        "Coverage": "Polygon",
-        "Description": "",
-        "Device number": 1,
-        "Device type": "Sensor",
-        "GeoPoints": "",
-        "ID": "139422",
-        "Name": "Bin sensor",
-        "Operations": {
-            "139774": {
-                "Data Type": "String",
-                "Description": "",
-                "ID": "139774",
-                "Operation Name": "getBinValue",
-                "Parent": "139422",
-                "Relation": "Optional",
-                "Selection": "No Selected",
-                "Service": "MQTT",
-                "Type": "Operation",
-                 "specification": {
-                    "Port": "b",
-                    "QoS": "b",
-                    "Server Broker": "a",
-                    "Topic": "b"
-                }
-            }
-        },
-        "Parent": "139419",
-        "Relation": "OR",
-        "Selection": "Selected",
-        "Type": "Device"
-    },
-    {
-        "Coverage": "Polygon",
-        "Description": "",
-        "Device number": 1,
-        "Device type": "Sensor",
-        "GeoPoints": "",
-        "ID": "139427",
-        "Name": "Water Sensor",
-        "Operations": {
-            "139777": {
-                "Data Type": "String",
-                "Description": "",
-                "ID": "139777",
-                "Operation Name": "getWaterValue",
-                "Parent": "139427",
-                "Relation": "Optional",
-                "Selection": "No Selected",
-                "Service": "MQTT",
-                "Type": "Operation",
-                 "specification": {
-                    "Port": "b",
-                    "QoS": "b",
-                    "Server Broker": "a",
-                    "Topic": "b"
-                }
-            }
-        },
-        "Parent": "139419",
-        "Relation": "OR",
-        "Selection": "Selected",
-        "Type": "Device"
-    },
-    {
-        "Coverage": "Polygon",
-        "Description": "",
-        "Device number": 1,
-        "Device type": "Sensor",
-        "GeoPoints": "",
-        "ID": "139432",
-        "Name": "RFID",
-        "Operations": {
-            "139780": {
-                "Data Type": "String",
-                "Description": "",
-                "ID": "139780",
-                "Operation Name": "getValue",
-                "Parent": "139432",
-                "Relation": "Optional",
-                "Selection": "No Selected",
-                "Service": "MQTT",
-                "Type": "Operation",
-                 "specification": {
-                    "Port": "b",
-                    "QoS": "b",
-                    "Server Broker": "a",
-                    "Topic": "b"
-                }
-            }
-        },
-        "Parent": "139317",
-        "Relation": "OR",
-        "Selection": "Selected",
-        "Type": "Device"
-    },
-    {
-        "Coverage": "Polygon",
-        "Description": "",
-        "Device number": 1,
-        "Device type": "Sensor",
-        "GeoPoints": "",
-        "ID": "139437",
-        "Name": "Retina scanner",
-        "Operations": {
-            "139783": {
-                "Data Type": "String",
-                "Description": "",
-                "ID": "139783",
-                "Operation Name": "getValue",
-                "Parent": "139437",
-                "Relation": "Optional",
-                "Selection": "No Selected",
-                "Service": "MQTT",
-                "Type": "Operation",
-                 "specification": {
-                    "Port": "b",
-                    "QoS": "b",
-                    "Server Broker": "a",
-                    "Topic": "b"
-                }
-            }
-        },
-        "Parent": "139317",
-        "Relation": "OR",
-        "Selection": "No Selected",
-        "Type": "Device"
-    },
-    {
-        "Coverage": "Polygon",
-        "Description": "",
-        "Device number": 1,
-        "Device type": "Sensor",
-        "GeoPoints": "",
-        "ID": "139442",
-        "Name": "Finger scanner",
-        "Operations": {
-            "139786": {
-                "Data Type": "String",
-                "Description": "",
-                "ID": "139786",
-                "Operation Name": "getValue",
-                "Parent": "139442",
-                "Relation": "Optional",
-                "Selection": "No Selected",
-                "Service": "MQTT",
-                "Type": "Operation",
-                 "specification": {
-                    "Port": "b",
-                    "QoS": "b",
-                    "Server Broker": "a",
-                    "Topic": "b"
-                }
-            }
-        },
-        "Parent": "139317",
-        "Relation": "OR",
-        "Selection": "Selected",
-        "Type": "Device"
-    },
-    {
-        "Coverage": "Polygon",
-        "Description": "",
-        "Device number": 1,
-        "Device type": "Actuator",
-        "GeoPoints": "",
-        "ID": "139447",
+        "ID": "167459",
         "Name": "Thermostat",
         "Operations": {
-            "139789": {
+            "167899": {
                 "Data Type": "String",
                 "Description": "",
-                "ID": "139789",
+                "ID": "167899",
                 "Operation Name": "setValue",
-                "Parent": "139447",
+                "Parent": "167459",
                 "Relation": "Optional",
                 "Selection": "No Selected",
-                "Service": "MQTT",
+                "Service": "HTTP",
                 "Type": "Operation",
-                 "specification": {
-                    "Port": "b",
-                    "QoS": "b",
-                    "Server Broker": "a",
-                    "Topic": "b"
+                "specification": {"Address": "y",
+                "Method": "",
+                "Port": ""
+            }
+            },
+            "167902": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "167902",
+                "Operation Name": "getValue",
+                "Parent": "167459",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "HTTP",
+                "Type": "Operation",
+                "specification": {"Address": "y",
+                "Method": "",
+                "Port": ""
+            }
+            }
+        },
+        "Parent": "167421",
+        "Relation": "AND",
+        "Selection": "No Selected",
+        "Type": "Device"
+    },
+    {
+        "Description": "",
+        "ID": "167466",
+        "Name": "Temperature Management",
+        "Parent": "167406",
+        "Relation": "OR",
+        "Selection": "No Selected",
+        "Type": "System"
+    },
+    {
+        "Description": "",
+        "ID": "167469",
+        "Name": "Light Management",
+        "Parent": "167406",
+        "Relation": "OR",
+        "Selection": "No Selected",
+        "Type": "System"
+    },
+    {
+        "Description": "",
+        "ID": "167472",
+        "Name": "Air Quality Management",
+        "Parent": "167406",
+        "Relation": "OR",
+        "Selection": "No Selected",
+        "Type": "System"
+    },
+    {
+        "Description": "",
+        "ID": "167475",
+        "Name": "Brightness Controller",
+        "Parent": "167469",
+        "Relation": "OR",
+        "Selection": "No Selected",
+        "Type": "System"
+    },
+    {
+        "Description": "",
+        "ID": "167478",
+        "Name": "Switching Unit",
+        "Parent": "167469",
+        "Relation": "OR",
+        "Selection": "No Selected",
+        "Type": "System"
+    },
+    {
+        "Description": "",
+        "Device type": "Sensor",
+        "ID": "167481",
+        "Name": "Brightness indoor Sensor",
+        "Operations": {
+            "167905": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "167905",
+                "Operation Name": "getValue",
+                "Parent": "167481",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "HTTP",
+                "Type": "Operation",
+                "specification": {"Address": "y",
+                "Method": "",
+                "Port": ""
+            }
+            }
+        },
+        "Parent": "167475",
+        "Relation": "OR",
+        "Selection": "No Selected",
+        "Type": "Device"
+    },
+    {
+        "Description": "",
+        "Device type": "Sensor",
+        "ID": "167486",
+        "Name": "Brightness Outdoor Sensor",
+        "Operations": {
+            "167908": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "167908",
+                "Operation Name": "getValue",
+                "Parent": "167486",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "HTTP",
+                "Type": "Operation",
+                "specification": {"Address": "y",
+                "Method": "",
+                "Port": ""
+            }
+            }
+        },
+        "Parent": "167475",
+        "Relation": "OR",
+        "Selection": "No Selected",
+        "Type": "Device"
+    },
+    {
+        "Description": "",
+        "Device type": "Tag",
+        "ID": "167491",
+        "Name": "Light System",
+        "Operations": {
+            "167911": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "167911",
+                "Operation Name": "getValue",
+                "Parent": "167491",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "HTTP",
+                "Type": "Operation",
+                "specification": {"Address": "y",
+                "Method": "",
+                "Port": ""
+            }
+            },
+            "167914": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "167914",
+                "Operation Name": "setValue",
+                "Parent": "167491",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "HTTP",
+                "Type": "Operation",
+                "specification": {"Address": "y",
+                "Method": "",
+                "Port": ""
+            }
+            }
+        },
+        "Parent": "167478",
+        "Relation": "Mandatory",
+        "Selection": "No Selected",
+        "Type": "Device"
+    },
+    {
+        "Description": "",
+        "ID": "167498",
+        "Name": "CO2 Detection",
+        "Parent": "167472",
+        "Relation": "OR",
+        "Selection": "No Selected",
+        "Type": "System"
+    },
+    {
+        "Description": "",
+        "ID": "167501",
+        "Name": "Fire control",
+        "Parent": "167472",
+        "Relation": "OR",
+        "Selection": "No Selected",
+        "Type": "System"
+    },
+    {
+        "Description": "",
+        "Device type": "Sensor",
+        "ID": "167504",
+        "Name": "CO2 Sensor",
+        "Operations": {
+            "167917": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "167917",
+                "Operation Name": "getValue",
+                "Parent": "167504",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "HTTP",
+                "Type": "Operation",
+                "specification": {"Address": "y",
+                "Method": "",
+                "Port": ""
+            }
+            }
+        },
+        "Parent": "167498",
+        "Relation": "Mandatory",
+        "Selection": "No Selected",
+        "Type": "Device"
+    },
+    {
+        "Description": "",
+        "Device type": "Sensor",
+        "ID": "167509",
+        "Name": "Fire Sensor",
+        "Operations": {
+            "167920": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "167920",
+                "Operation Name": "getValue",
+                "Parent": "167509",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "HTTP",
+                "Type": "Operation",
+                "specification": {"Address": "y",
+                "Method": "",
+                "Port": ""
+            }
+            }
+        },
+        "Parent": "167501",
+        "Relation": "Mandatory",
+        "Selection": "No Selected",
+        "Type": "Device"
+    },
+    {
+        "Description": "",
+        "Device type": "Actuator",
+        "ID": "167514",
+        "Name": "Sirena",
+        "Operations": {
+            "167923": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "167923",
+                "Operation Name": "getValue",
+                "Parent": "167514",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "HTTP",
+                "Type": "Operation",
+                "specification": {"Address": "y",
+                "Method": "",
+                "Port": ""
+            }
+            },
+            "167926": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "167926",
+                "Operation Name": "setValue",
+                "Parent": "167514",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "HTTP",
+                "Type": "Operation",
+                "specification": {"Address": "y",
+                "Method": "",
+                "Port": ""
+            }
+            }
+        },
+        "Parent": "167409",
+        "Relation": "OR",
+        "Selection": "No Selected",
+        "Type": "Device"
+    },
+    {
+        "Description": "",
+        "Device type": "Actuator",
+        "ID": "167521",
+        "Name": "Light alarm",
+        "Operations": {
+            "167929": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "167929",
+                "Operation Name": "getValue",
+                "Parent": "167521",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "HTTP",
+                "Type": "Operation",
+                "specification": {"Address": "y",
+                "Method": "",
+                "Port": ""
+            }
+            },
+            "167932": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "167932",
+                "Operation Name": "setValue",
+                "Parent": "167521",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "HTTP",
+                "Type": "Operation",
+                "specification": {"Address": "y",
+                "Method": "",
+                "Port": ""
+            }
+            }
+        },
+        "Parent": "167409",
+        "Relation": "OR",
+        "Selection": "No Selected",
+        "Type": "Device"
+    },
+    {
+        "Description": "",
+        "ID": "167528",
+        "Name": "Smart Spaces",
+        "Parent": "167403",
+        "Relation": "Optional",
+        "Selection": "No Selected",
+        "Type": "System"
+    },
+    {
+        "Description": "",
+        "Device type": "Actuator",
+        "ID": "167531",
+        "Name": "Projector",
+        "Operations": {
+            "167935": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "167935",
+                "Operation Name": "turnON",
+                "Parent": "167531",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "HTTP",
+                "Type": "Operation",
+                "specification": {"Address": "y",
+                "Method": "",
+                "Port": ""
+            }
+            }
+        },
+        "Parent": "167640",
+        "Relation": "OR",
+        "Selection": "No Selected",
+        "Type": "Device"
+    },
+    {
+        "Description": "",
+        "Device type": "Actuator",
+        "ID": "167536",
+        "Name": "LIM",
+        "Operations": {
+            "167938": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "167938",
+                "Operation Name": "turnON",
+                "Parent": "167536",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "HTTP",
+                "Type": "Operation",
+                "specification": {"Address": "y",
+                "Method": "",
+                "Port": ""
+            }
+            }
+        },
+        "Parent": "167640",
+        "Relation": "OR",
+        "Selection": "No Selected",
+        "Type": "Device"
+    },
+    {
+        "Description": "",
+        "Device type": "Actuator",
+        "ID": "167541",
+        "Name": "PC",
+        "Operations": {
+            "167941": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "167941",
+                "Operation Name": "turnON",
+                "Parent": "167541",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "HTTP",
+                "Type": "Operation",
+                "specification": {"Address": "y",
+                "Method": "",
+                "Port": ""
+            }
+            }
+        },
+        "Parent": "167640",
+        "Relation": "OR",
+        "Selection": "No Selected",
+        "Type": "Device"
+    },
+    {
+        "Description": "",
+        "ID": "167546",
+        "Name": "Identification",
+        "Parent": "167412",
+        "Relation": "OR",
+        "Selection": "No Selected",
+        "Type": "System"
+    },
+    {
+        "Description": "",
+        "ID": "167549",
+        "Name": "Access Control",
+        "Parent": "167412",
+        "Relation": "OR",
+        "Selection": "Selected",
+        "Type": "System"
+    },
+    {
+        "Description": "",
+        "Device type": "Sensor",
+        "ID": "167552",
+        "Name": "Finger Scanner",
+        "Operations": {
+            "167944": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "167944",
+                "Operation Name": "getValue",
+                "Parent": "167552",
+                "Relation": "Optional",
+                "Selection": "Selected",
+                "Service": "HTTP",
+                "Type": "Operation",
+                "specification": {"Address": "y",
+                "Method": "",
+                "Port": ""
+            }
+            }
+        },
+        "Parent": "167546",
+        "Relation": "AND",
+        "Selection": "Selected",
+        "Type": "Device"
+    },
+    {
+        "Description": "",
+        "Device type": "Sensor",
+        "ID": "167557",
+        "Name": "Retina Scanner",
+        "Operations": {
+            "167947": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "167947",
+                "Operation Name": "getValue",
+                "Parent": "167557",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "HTTP",
+                "Type": "Operation",
+                "specification": {"Address": "y",
+                "Method": "",
+                "Port": ""
+            }
+            }
+        },
+        "Parent": "167546",
+        "Relation": "AND",
+        "Selection": "No Selected",
+        "Type": "Device"
+    },
+    {
+        "Description": "",
+        "Device type": "Sensor",
+        "ID": "167562",
+        "Name": "PIR",
+        "Operations": {
+            "167950": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "167950",
+                "Operation Name": "getValue",
+                "Parent": "167562",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "HTTP",
+                "Type": "Operation",
+                "specification": {"Address": "y",
+                "Method": "",
+                "Port": ""
+            }
+            }
+        },
+        "Parent": "167546",
+        "Relation": "AND",
+        "Selection": "No Selected",
+        "Type": "Device"
+    },
+    {
+        "Description": "",
+        "Device type": "Sensor",
+        "ID": "167567",
+        "Name": "Camera",
+        "Operations": {
+            "167953": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "167953",
+                "Operation Name": "getValue",
+                "Parent": "167567",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "HTTP",
+                "Type": "Operation",
+                "specification": {"Address": "y",
+                "Method": "",
+                "Port": ""
+            }
+            }
+        },
+        "Parent": "167546",
+        "Relation": "AND",
+        "Selection": "No Selected",
+        "Type": "Device"
+    },
+    {
+        "Description": "",
+        "Device type": "Tag",
+        "ID": "167572",
+        "Name": "RFID",
+        "Operations": {
+            "167956": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "167956",
+                "Operation Name": "getValue",
+                "Parent": "167572",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "HTTP",
+                "Type": "Operation",
+                "specification": {"Address": "y",
+                "Method": "",
+                "Port": ""
+            }
+            }
+        },
+        "Parent": "167546",
+        "Relation": "AND",
+        "Selection": "No Selected",
+        "Type": "Device"
+    },
+    {
+        "Description": "",
+        "Device type": "Actuator",
+        "ID": "167577",
+        "Name": "Access Controller",
+        "Operations": {
+            "167959": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "167959",
+                "Operation Name": "getValue",
+                "Parent": "167577",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "HTTP",
+                "Type": "Operation",
+                "specification": {  
+                "Address": "test",
+                "Method": "POST",
+                "Port": "8081"
+            }
+            },
+            "167962": {
+                "Data Type": "String",
+                "Description": "allow the access to a place/position",
+                "ID": "167962",
+                "Operation Name": "allowAccess",
+                "Parent": "167577",
+                "Relation": "Optional",
+                "Selection": "Selected",
+                "Service": "HTTP",
+                "Type": "Operation",
+                "specification": {
+                    "Address": "172.23.187.4/access/allowed",
+                    "Method": "POST",
+                    "Port": "8081"
+                }
+            },
+            "167965": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "167965",
+                "Operation Name": "denyAccess",
+                "Parent": "167577",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "HTTP",
+                "Type": "Operation",
+                "specification": {
+                    "Address": "172.23.187.4/access/allowed",
+                "Method": "POST",
+                "Port": "8081"}
+            }
+        },
+        "Parent": "167549",
+        "Relation": "OR",
+        "Selection": "Selected",
+        "Type": "Device"
+    },
+    {
+        "Description": "",
+        "ID": "167586",
+        "Name": "Position Controller",
+        "Parent": "167412",
+        "Relation": "OR",
+        "Selection": "No Selected",
+        "Type": "System"
+    },
+    {
+        "Description": "",
+        "Device type": "Actuator",
+        "ID": "167589",
+        "Name": "Door Controller",
+        "Operations": {
+            "167968": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "167968",
+                "Operation Name": "getValue",
+                "Parent": "167589",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "HTTP",
+                "Type": "Operation",
+                "specification": {"Address": "y",
+                "Method": "",
+                "Port": ""
+            }
+            }
+        },
+        "Parent": "167549",
+        "Relation": "OR",
+        "Selection": "No Selected",
+        "Type": "Device"
+    },
+    {
+        "Description": "",
+        "Device type": "Sensor",
+        "ID": "167594",
+        "Name": "Magnetic Sensor",
+        "Operations": {
+            "167971": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "167971",
+                "Operation Name": "getValue",
+                "Parent": "167594",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "HTTP",
+                "Type": "Operation",
+                "specification": {"Address": "y",
+                "Method": "",
+                "Port": ""
+            }
+            }
+        },
+        "Parent": "167586",
+        "Relation": "OR",
+        "Selection": "No Selected",
+        "Type": "Device"
+    },
+    {
+        "Description": "",
+        "Device type": "Sensor",
+        "ID": "167599",
+        "Name": "Radar Sensor",
+        "Operations": {
+            "167974": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "167974",
+                "Operation Name": "getValue",
+                "Parent": "167599",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "HTTP",
+                "Type": "Operation",
+                "specification": {"Address": "y",
+                "Method": "",
+                "Port": ""
+            }
+            }
+        },
+        "Parent": "167586",
+        "Relation": "OR",
+        "Selection": "No Selected",
+        "Type": "Device"
+    },
+    {
+        "Description": "",
+        "ID": "167604",
+        "Name": "Control Level",
+        "Parent": "167415",
+        "Relation": "AND",
+        "Selection": "No Selected",
+        "Type": "System"
+    },
+    {
+        "Description": "",
+        "Device type": "Sensor",
+        "ID": "167607",
+        "Name": "Water Sensor",
+        "Operations": {
+            "167977": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "167977",
+                "Operation Name": "getValue",
+                "Parent": "167607",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "HTTP",
+                "Type": "Operation",
+                "specification": {"Address": "y",
+                "Method": "",
+                "Port": ""
+            }
+            }
+        },
+        "Parent": "167604",
+        "Relation": "OR",
+        "Selection": "No Selected",
+        "Type": "Device"
+    },
+    {
+        "Description": "",
+        "Device type": "Sensor",
+        "ID": "167612",
+        "Name": "Bin sensor",
+        "Operations": {
+            "167980": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "167980",
+                "Operation Name": "getValue",
+                "Parent": "167612",
+                "Relation": "Optional",
+                "Selection": "Selected",
+                "Service": "HTTP",
+                "Type": "Operation",
+                "specification": {"Address": "y",
+                "Method": "",
+                "Port": ""
+            }
+            }
+        },
+        "Parent": "167604",
+        "Relation": "OR",
+        "Selection": "Selected",
+        "Type": "Device"
+    },
+    {
+        "Description": "",
+        "Device type": "Actuator",
+        "ID": "167617",
+        "Name": "Bin Robot",
+        "Operations": {
+            "167983": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "167983",
+                "Operation Name": "getValue",
+                "Parent": "167617",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "HTTP",
+                "Type": "Operation",
+                "specification": {"Address": "y",
+                "Method": "",
+                "Port": ""
+            }
+            },
+            "167986": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "167986",
+                "Operation Name": "setValue",
+                "Parent": "167617",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "HTTP",
+                "Type": "Operation",
+                "specification": {"Address": "y",
+                "Method": "",
+                "Port": ""
+            }
+            },
+            "167995": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "167995",
+                "Operation Name": "Move to waste dumping area",
+                "Parent": "167617",
+                "Relation": "Optional",
+                "Selection": "Selected",
+                "Service": "HTTP",
+                "Type": "Operation",
+                "specification": {
+                    "Address": "172.23.187.5/bin/movement/dumping/area",
+                    "Method": "POST",
+                    "Port": "8082"
+                }
+            },
+            "167998": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "167998",
+                "Operation Name": "Put and empty bin",
+                "Parent": "167617",
+                "Relation": "Optional",
+                "Selection": "Selected",
+                "Service": "HTTP",
+                "Type": "Operation",
+                "specification": {
+                    "Address": "172.23.187.5/bin/new/empty",
+                    "Method": "POST",
+                    "Port": "8082"
                 }
             }
         },
-        "Parent": "139246",
+        "Parent": "167637",
+        "Relation": "OR",
+        "Selection": "Selected",
+        "Type": "Device"
+    },
+    {
+        "Description": "",
+        "Device type": "Actuator",
+        "ID": "167628",
+        "Name": "Food Provider",
+        "Operations": {
+            "167989": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "167989",
+                "Operation Name": "getValue",
+                "Parent": "167628",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "HTTP",
+                "Type": "Operation",
+                "specification": {"Address": "y",
+                "Method": "",
+                "Port": ""
+            }
+            },
+            "167992": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "167992",
+                "Operation Name": "setValue",
+                "Parent": "167628",
+                "Relation": "Optional",
+                "Selection": "No Selected",
+                "Service": "HTTP",
+                "Type": "Operation",
+                "specification": {"Address": "y",
+                "Method": "",
+                "Port": ""
+            }
+            },
+            "168001": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "168001",
+                "Operation Name": "ServeFood",
+                "Parent": "167628",
+                "Relation": "Optional",
+                "Selection": "Selected",
+                "Service": "HTTP",
+                "Type": "Operation",
+                "specification": {
+                    "Address": "172.23.187.5/food/service",
+                    "Method": "POST",
+                    "Port": "8083"
+                }
+            }
+        },
+        "Parent": "167637",
+        "Relation": "OR",
+        "Selection": "Selected",
+        "Type": "Device"
+    },
+    {
+        "Description": "",
+        "ID": "167637",
+        "Name": "Waste Handler",
+        "Parent": "167415",
+        "Relation": "AND",
+        "Selection": "Selected",
+        "Type": "System"
+    },
+    {
+        "Description": "",
+        "ID": "167640",
+        "Name": "Instrument Management",
+        "Parent": "167528",
+        "Relation": "Mandatory",
+        "Selection": "No Selected",
+        "Type": "System"
+    },
+    {
+        "Description": "",
+        "Device type": "Sensor",
+        "ID": "167643",
+        "Name": "Proximity Sensor",
+        "Operations": {
+            "168009": {
+                "Data Type": "String",
+                "Description": "",
+                "ID": "168009",
+                "Operation Name": "getValue",
+                "Parent": "167643",
+                "Relation": "Optional",
+                "Selection": "Selected",
+                "Service": "HTTP",
+                "Type": "Operation",
+                "specification": {
+                    "Address": "test",
+                    "Method": "POST",
+                    "Port": "1111"
+                }
+            }
+        },
+        "Parent": "167586",
         "Relation": "OR",
         "Selection": "Selected",
         "Type": "Device"
