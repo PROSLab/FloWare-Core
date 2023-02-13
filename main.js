@@ -4,7 +4,7 @@ let options;
 if (pkg.hasOwnProperty("NRelectron")) { options = pkg["NRelectron"] }
 // Setup user directory and flowfile (if editable)
 var userdir = __dirname;
-
+var psmid
 global.array_config = [];
 // Some settings you can edit if you don't set them in package.json
 //console.log(options)
@@ -23,8 +23,8 @@ let urlStart;                       // Start on this page
 if (options.start.toLowerCase() === "editor") { urlStart = urledit; }
 else if (options.start.toLowerCase() === "map") { urlStart = urlmap; }
 else { urlStart = urledit }
-global.x__ = 100;
-global.y__ = 100;
+global.x__ = 200;
+global.y__ = 40;
 
 // TCP port to use
 //const  
@@ -32,6 +32,7 @@ global.y__ = 100;
 a = Math.random() * 16383 + 49152         */            // fix it if you like
 const listenPort = "18880";   // or random ephemeral port
 
+const fetch =require('node-fetch');
 const os = require('os');
 var fs = require('fs');
 const url = require('url');
@@ -46,11 +47,8 @@ const ipcRenderer =electron.ipcRenderer;
 const dialog = electron.dialog;
 const BrowserWindow = electron.BrowserWindow;
 var RED = require("node-red");
-const { createUnparsedSourceFile } = require('typescript');
-const { contains } = require('jquery');
 const { element } = require('protractor');
 const { dirname } = require('logic-solver');
-const { empty } = require('rxjs');
 var red_app = express();
 
 
@@ -62,87 +60,6 @@ red_app.use("/", express.static("web"));
 var server = http.createServer(red_app);
 
 
-
-//function to analyse types of elements presented in the file
-/* function analyseFlowFile(userdir) {
-    var paths = userdir.toString();
-    var arrayTypes = new Array();
-    var arrayMQTT = new Array();
-
-    var arrayMQTTBroker = [];
-
-
-    fs.readFile(paths, 'utf-8', (err, data) => {
-        try {
-            var flo = JSON.parse(data);
-            if (Array.isArray(flo) && (flo.length > 0)) {
-
-                //  console.log("il flusso è ",(flo))
-
-                for (var i = 0; i < flo.length; i++) {
-                    arrayTypes[i] = flo[i] //save all the differents elements in the file
-                    //  console.log("Array", arrayTypes[i]) 
-                }
-
-                //search for mqtt-broker
-                var k = 0;
-                for (var i = 0; i < flo.length; i++) {
-                    if (arrayTypes[i].type == "mqtt-broker") {
-                        arrayMQTTBroker[k] = arrayTypes[i];
-                        k++;
-                    }
-                    //  console.log(arrayMQTTBroker[i])
-                }
-
-                //  console.log(arrayMQTTBroker.length)
-                //search for all mqtt nodes
-                var j = 0;
-                for (var i = 0; i < flo.length; i++) {
-                    if (arrayTypes[i].type == "mqtt in") {
-                        arrayMQTT[j] = arrayTypes[i];
-                        // console.log("mqtt e':", arrayMQTT[j])
-                        j++;
-                    }
-                }
-
-                //   console.log(arrayMQTT.length)
-                //search for all the mqtt nodes that are connected with mqtt-broker
-
-
-                arrayMQTTBroker.map(x => {
-                    x.mqttnodes = [[]]
-                })
-
-                for (var i = 0; i < arrayMQTT.length; i++) {
-                    var l = 0;
-                    for (var j = 0; j < arrayMQTTBroker.length; j++) {
-                        if (arrayMQTT[i].broker == arrayMQTTBroker[j].id) {
-                            arrayMQTTBroker[j].mqttnodes[l] = arrayMQTT[i].id //ogni nodo mqttbroker ora ha i suoi nodi figli indicizzati
-                            l++;
-                        }
-                    }
-                    //   console.log(arrayMQTTBroker[i])
-                }
-                var legh = 5
-                ipc.on('prova2', () => {
-                    mainWindow.webContents.send('store-data', legh);
-                });
-            }
-
-            else {
-                dialog.showErrorBox("Error", "Failed to parse flow file.\n\n  " + flo + ".\n\nAre you sure it's a flow file ?");
-                console.log(err);
-            }
-        }
-        catch (e) {
-            dialog.showErrorBox("Error", "Failed to load flow file.\n\n  " + e);
-            console.log(e);
-        }
-    })
-
-    // console.log("il file è", flowfile2)
-}
- */
 if (editable) {
   // if running as raw electron use the current directory (mainly for dev)
   if (process.argv[1] && (process.argv[1] === "main.js")) {
@@ -495,7 +412,7 @@ function createNewApp() {
 
   // Create the hidden console window
   appWindow = new BrowserWindow({
-    title: "Create a new application",
+    title: "Create a new Application",
     width: 700,
     height: 500,
     icon: path.join(__dirname, nrIcon),
@@ -515,15 +432,32 @@ function createNewApp() {
   });
 }
 
-//FUNZIONA 
-
-
+var main_name
 flo = global.json
-ipc.on("FloWareConfiguration", (event, flo) => {
-  for (elementflo = 0; elementflo < flo.length; elementflo++) {
-    if (flo[elementflo].Selection == "Selected") {
-      // console.log("selected \n",flo[elementflo])
+var elementi_analizzati = global.array_config
+var path_eventi
+var result_event;
+ipc.on("FloWareConfiguration", async (event, flo,psmid) => {
+  console.log(psmid)
+ 
 
+  main_name= flo[0].Name
+  main_name=main_name.replace(/\s/g, '');
+  path_eventi="http://pedvalar.webs.upv.es/microservices/system/"+main_name+"/floware/psm/"+psmid+"/events"
+
+ response = await fetch(path_eventi, {
+    method: 'GET',
+    headers: { Accept: 'application/json', },
+  });
+
+
+  result_event = (await response.json());
+  console.log((result_event));
+
+
+  for (elementflo = 0; elementflo < flo.length; elementflo++) {
+
+    if (flo[elementflo].Selection == "Selected") {
       if ((flo[elementflo]["Device type"] == "Sensor" || flo[elementflo]["Device type"] == "Tag"|| flo[elementflo]["Device type"] == "Actuator" )) {
         if((flo[elementflo]["Device type"] == "Sensor" || flo[elementflo]["Device type"] == "Tag")){
         global.inp = "in"
@@ -531,7 +465,61 @@ ipc.on("FloWareConfiguration", (event, flo) => {
         else{
           global.inp="out"
         }
+
         Object.keys((flo[elementflo]["Operations"])).forEach(element => {
+          var id_comment = "159c15f9."
+          var min = 1
+          var max = 999999
+          var r = parseInt(Math.random() * (max - min) + min);
+          id_comment += r;
+          var comment;
+          var comment2;
+         var vr= "Device Name: "
+          comment2 = `
+          {
+              "id": "${id_comment}",
+              "type": "comment",
+              "z": "",
+              "name": "${vr+flo[elementflo]["Name"]}",
+              "info": "",
+              "x":${global.x__},
+              "y": ${global.y__},
+              "wires": [[]]
+          }`
+             comment2 = JSON.parse(comment2)
+             elementi_analizzati.push(comment2)
+             global.y__ +=40;
+
+
+        
+           result_event.forEach(element2 => {
+        if ((flo[elementflo]["Name"] == element2.device) && (flo[elementflo]["Operations"][element]["Operation Name"] == element2.operation)) {
+            var min = 1
+            var max = 999999
+            var id_comment = "159c15f9."
+            var r = parseInt(Math.random() * (max - min) + min);
+            id_comment += r;
+            var message= "Event condition: "+  element2.device + element2.name+ " "+ element2.operation+" "+ element2.condition
+           comment = `
+         {
+             "id": "${id_comment}",
+             "type": "comment",
+             "z": "",
+             "name": "${message}",
+             "info": "",
+             "x":${global.x__},
+             "y": ${global.y__},
+             "wires": [[]]
+         }`
+            comment = JSON.parse(comment)
+            elementi_analizzati.push(comment)
+     
+          //  global.y__ += parseInt((Math.random() * (200 - 100) + 100));
+          global.y__ +=50;
+
+        }
+       });
+
          // console.log((flo[elementflo]["Operations"][element]["Operation Name"], flo[elementflo]["Operations"][element]["Service"]))
 
           if (flo[elementflo]["Operations"][element]["Service"] == "MQTT") {
@@ -552,7 +540,7 @@ ipc.on("FloWareConfiguration", (event, flo) => {
           }
           else if (flo[elementflo]["Operations"][element]["Service"] == "HTTP") {
 
-            sub_http((flo[elementflo]["Operations"][element]["Data Type"]),(flo[elementflo]["Operations"][element]["Address"]),(flo[elementflo]["Operations"][element]["Method"]),(flo[elementflo]["Operations"][element]["Operation Name"]),(flo[elementflo]["Operations"][element]["Port"]));
+            sub_http((flo[elementflo]["Operations"][element]["Data Type"]),(flo[elementflo]["Operations"][element]["specification"]["Address"]),(flo[elementflo]["Operations"][element]["specification"]["Method"]),(flo[elementflo]["Operations"][element]["Operation Name"]),(flo[elementflo]["Operations"][element]["specification"]["Port"]));
           }
           else if (flo[elementflo]["Operations"][element]["Service"] == "LoRa") {
 
@@ -560,50 +548,16 @@ ipc.on("FloWareConfiguration", (event, flo) => {
           }
         });
 
-      /*  if (flo[elementflo]["Device type"] == "Actuator") {
-            global.inp = "out"
-            Object.keys((flo[elementflo]["Operations"])).forEach(element => {
-             // console.log((flo[elementflo]["Operations"][element]["Operation Name"], flo[elementflo]["Operations"][element]["Service"]))
-                  console.log("elemento:" , flo[elementflo]["Operations"][element]["Operation Name"])
-              if (flo[elementflo]["Operations"][element]["Service"] == "MQTT") {
-               
-                subm((flo[elementflo]["Operations"][element]["Data Type"]),(flo[elementflo]["Operations"][element]["Operation Name"]), (flo[elementflo]["Operations"][element]["specification"]["QoS"]), (flo[elementflo]["Operations"][element]["specification"]["Topic"]), (flo[elementflo]["Operations"][element]["specification"]["Server Broker"]), (flo[elementflo]["Operations"][element]["specification"]["Port"]));
-              }
-              else if (flo[elementflo]["Operations"][element]["Service"] == "UDP") {
-    
-                set_udp(n, yy, (flo[elementflo]["Operations"][element]["Operation Name"]), global.inp);
-              }
-              else if (flo[elementflo]["Operations"][element]["Service"] == "TCP") {
-    
-                set_tcp(n, yy, (flo[elementflo]["Operations"][element]["Operation Name"]), global.inp);
-              }
-              else if (flo[elementflo]["Operations"][element]["Service"] == "WEBSOCKET") {
-    
-                set_websocket(n, yy, (flo[elementflo]["Operations"][element]["Operation Name"]), global.inp);
-              }
-              else if (flo[elementflo]["Operations"][element]["Service"] == "HTTP") {
-    
-                sub_http((flo[elementflo]["Operations"][element]["Data Type"]),(flo[elementflo]["Operations"][element]["Address"]),(flo[elementflo]["Operations"][element]["Method"]),(flo[elementflo]["Operations"][element]["Operation Name"]),(flo[elementflo]["Operations"][element]["Port"]));
-              }
-              else if (flo[elementflo]["Operations"][element]["Service"] == "LoRa") {
-    
-                set_lora(n, yy, (flo[elementflo]["Operations"][element]["Operation Name"]), global.inp);
-              }
-            });
-        }*/
-
+     
       }
     }
   }
-  var elementi_analizzati = global.array_config
+
   var min = 1
   var max = 999999
   var r = parseInt(Math.random() * (max - min) + min);  //random id file
   var id = "41f61d2."
   id += r; // z = file_id
-  var rules = []
-  var newarr = []
-  var j = 0;
 
   var id_tab = `b7abfg80.${r}`
 
@@ -643,35 +597,6 @@ ipc.on("FloWareConfiguration", (event, flo) => {
     }
   })
 
-
-
-  var y = 0;
-
-  /*  for (var i = 0; i < newarr.length; i++) {  //set every comment for each system to provide
-
-       var min = 1
-       var max = 999999
-       var id_comment = "159c15f9."
-       var r = parseInt(Math.random() * (max - min) + min);
-       id_comment += r;
-       y = y + 40
-       var comment = `
-    {
-        "id": "${id_comment}",
-        "type": "comment",
-        "z": "",
-        "name": "${newarr[i]}",
-        "info": "",
-        "x": 100,
-        "y": ${y},
-        "wires": [[]]
-    }`
-       comment = JSON.parse(comment)
-       elementi_analizzati.push(comment)
-
-       y += parseInt((Math.random() * (200 - 100) + 100));
-       i++
-   } */
 
   elementi_analizzati.push(initials) //deve rimanere in ultima posizione del file
 
@@ -746,8 +671,8 @@ function create_colleg(node, datatype, x, y) {
   var min = 1
   var max = 999999
   var r = parseInt(Math.random() * (max - min) + min);
-  x = parseInt(global.x__)
-  y = parseInt(global.y__)
+  global.x__ = parseInt(global.x__)
+  global.y__ = parseInt(global.y__)
   if (global.encrypt_ != null) {
     var encr_id = `897696c.${r}`
     var decrypt_id = `4567f696c.${r}`
@@ -1057,8 +982,8 @@ function create_colleg(node, datatype, x, y) {
         "offvalueType": "bool",
         "officon": "",
         "offcolor": "",
-        "x": ${x + parseInt(110)},
-        "y":${y - parseInt(60)},
+        "x": ${global.x__ + parseInt(110)},
+        "y":${global,y__ - parseInt(60)},
         "wires": [
           [
           ]
@@ -1079,8 +1004,8 @@ function create_colleg(node, datatype, x, y) {
         "label": "state",
         "format": "{{msg.payload}}",
         "layout": "row-spread",
-        "x": ${x + parseInt(530)},
-        "y":${y - parseInt(60)},
+        "x": ${global.x__ + parseInt(530)},
+        "y":${global.y__ - parseInt(60)},
         "wires": []
       }`
     switch_ = JSON.parse(switch_)
@@ -1414,7 +1339,7 @@ function create_colleg(node, datatype, x, y) {
         "offvalueType": "bool",
         "officon": "",
         "offcolor": "",
-        "x": ${x + parseInt(110)},
+        "x": ${x + parseInt(310)},
         "y":${y - parseInt(60)},
         "wires": [
           [
@@ -1522,7 +1447,7 @@ function create_colleg(node, datatype, x, y) {
       node2.type = node2.type.replace(/request/, "request");
       var x_ = parseInt(node2.x) + parseInt(85)
       if (global.encrypt_ == null) {
-        node2.x.push(x_)
+        node2.x =(x_.toString())
         node2.wires[0].push(id_text)
         node2.wires[0].push(id_switch)
       } else {
@@ -1660,7 +1585,7 @@ function sub_lora(deviceid, field, applid, key, element, port, n) {
   yy++;
 }
 
-function sub_http(datatype, path, method, name,port) {
+function sub_http(datatype, path, method, name, port) {
   ids = "35eb11d7."
   var min = 1
   var max = 999999
@@ -1674,7 +1599,7 @@ function sub_http(datatype, path, method, name,port) {
           "z": "",
           "ret": "txt",
           "name": "${name}",
-          "url": "${path}",
+          "url": "${path}:${port}",
           "tls": "",
           "persist": false,
           "statusCode": "",
@@ -1705,10 +1630,10 @@ function sub_http(datatype, path, method, name,port) {
       "once": true,
       "onceDelay": 0.1,
        "x": "${parseInt(global.x__)}",
-        "y": "${parseInt(global.y__) - 50}",
+        "y": "${parseInt(global.y__) + 50}",
       "wires": [
         [
-          "${node_.id}"
+          "${ids}"
         ]
       ]
     }`
@@ -1717,16 +1642,14 @@ function sub_http(datatype, path, method, name,port) {
   global.array_config.push(inject)
   global.x__ = global.x__
   global.y__ = global.y__
-
+  global.inp =""
   create_colleg(node_, datatype, global.x__, global.y__)
   // global.array_config.push(node_)
   var html = ""
   var code = ""
   //elem[n].innerHTML=""
-  ele[0].innerHTML = ""
-  n++
+
   renderer_ = true
-  yy++;
 }
 
 function set_websocket(n, yy, element) {
@@ -1750,7 +1673,7 @@ function set_websocket(n, yy, element) {
 }
 
 function sub_websocket(path, elem, n) {
-  var ele = document.getElementsByClassName("configurator" + n);
+ 
   var id_wsServer = "3ad61300."
   var min = 1
   var max = 999999
@@ -1922,10 +1845,6 @@ function sub_tcp(port, elem, n) {
 
 
 
-
-
-
-
 // Create the main browser window
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -2028,5 +1947,3 @@ RED.start().then(function () {
     //analyseFlowFile(flowfile);
   });
 });
-
-
