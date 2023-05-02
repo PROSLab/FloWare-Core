@@ -8,6 +8,10 @@ var psmid
 global.array_config = [];
 // Some settings you can edit if you don't set them in package.json
 //console.log(options)
+const { Notification } = require("electron");
+
+const NOTIFICATION_TITLE = "FloWare Notification";
+const NOTIFICATION_BODY = "You request was sent with success!";
 const editable = true;      // set this to false to create a run only application - no editor/no console
 const allowLoadSave = true; // set to true to allow import and export of flow file
 const showMap = true;       // set to true to add Worldmap to the menu
@@ -32,7 +36,7 @@ global.y__ = 40;
 a = Math.random() * 16383 + 49152         */            // fix it if you like
 const listenPort = "18880";   // or random ephemeral port
 
-const fetch =require('node-fetch');
+const fetch = require('node-fetch');
 const os = require('os');
 var fs = require('fs');
 const url = require('url');
@@ -43,7 +47,7 @@ const electron = require('electron');
 const isDev = require('electron-is-dev');
 const { app, Menu } = electron;
 const ipc = electron.ipcMain;
-const ipcRenderer =electron.ipcRenderer;
+const ipcRenderer = electron.ipcRenderer;
 const dialog = electron.dialog;
 const BrowserWindow = electron.BrowserWindow;
 var RED = require("node-red");
@@ -437,15 +441,18 @@ flo = global.json
 var elementi_analizzati = global.array_config
 var path_eventi
 var result_event;
-ipc.on("FloWareConfiguration", async (event, flo,psmid) => {
-  console.log(psmid)
- 
+ipc.on("FloWareConfiguration", async (event, flo, psmid) => {
 
-  main_name= flo[0].Name
-  main_name=main_name.replace(/\s/g, '');
-  path_eventi="http://pedvalar.webs.upv.es/microservices/system/"+main_name+"/floware/psm/"+psmid+"/events"
+  new Notification({
+    title: NOTIFICATION_TITLE,
+    body: NOTIFICATION_BODY,
+  }).show();
 
- response = await fetch(path_eventi, {
+  main_name = flo[0].Name
+  main_name = main_name.replace(/\s/g, '');
+  path_eventi = "http://pedvalar.webs.upv.es/microservices/system/" + main_name + "/floware/psm/" + psmid + "/events"
+
+  response = await fetch(path_eventi, {
     method: 'GET',
     headers: { Accept: 'application/json', },
   });
@@ -454,19 +461,20 @@ ipc.on("FloWareConfiguration", async (event, flo,psmid) => {
   result_event = (await response.json());
   console.log((result_event));
 
-
   for (elementflo = 0; elementflo < flo.length; elementflo++) {
 
+   if(flo[elementflo]["Type"]=="Device")  {
     if (flo[elementflo].Selection == "Selected") {
-      if ((flo[elementflo]["Device type"] == "Sensor" || flo[elementflo]["Device type"] == "Tag"|| flo[elementflo]["Device type"] == "Actuator" )) {
-        if((flo[elementflo]["Device type"] == "Sensor" || flo[elementflo]["Device type"] == "Tag")){
-        global.inp = "in"
+      if ((flo[elementflo]["Device type"] == "Sensor" || flo[elementflo]["Device type"] == "Tag" || flo[elementflo]["Device type"] == "Actuator")) {
+        if ((flo[elementflo]["Device type"] == "Sensor" || flo[elementflo]["Device type"] == "Tag")) {
+          global.inp = "in"
         }
-        else{
-          global.inp="out"
+        else {
+          global.inp = "out"
         }
 
         Object.keys((flo[elementflo]["Operations"])).forEach(element => {
+       
           var id_comment = "159c15f9."
           var min = 1
           var max = 999999
@@ -474,33 +482,39 @@ ipc.on("FloWareConfiguration", async (event, flo,psmid) => {
           id_comment += r;
           var comment;
           var comment2;
-         var vr= "Device Name: "
+          var vr = "Device Name: "
           comment2 = `
           {
               "id": "${id_comment}",
               "type": "comment",
               "z": "",
-              "name": "${vr+flo[elementflo]["Name"]}",
+              "name": "${vr + flo[elementflo]["Name"]}",
               "info": "",
               "x":${global.x__},
               "y": ${global.y__},
               "wires": [[]]
           }`
-             comment2 = JSON.parse(comment2)
-             elementi_analizzati.push(comment2)
-             global.y__ +=40;
+          comment2 = JSON.parse(comment2)
+          elementi_analizzati.push(comment2)
+          global.y__ += 40;
+          
+          var high_level
 
+          result_event.forEach(element2 => {
 
-        
-           result_event.forEach(element2 => {
-        if ((flo[elementflo]["Name"] == element2.device) && (flo[elementflo]["Operations"][element]["Operation Name"] == element2.operation)) {
-            var min = 1
-            var max = 999999
-            var id_comment = "159c15f9."
-            var r = parseInt(Math.random() * (max - min) + min);
-            id_comment += r;
-            var message= "Event condition: "+  element2.device + element2.name+ " "+ element2.operation+" "+ element2.condition
-           comment = `
+         
+
+            if ((flo[elementflo]["Name"] == element2.device) && (flo[elementflo]["Operations"][element]["Operation Name"] == element2.operation)) {
+              var min = 1
+              var max = 999999
+              var id_comment = "159c15f9."
+              var r = parseInt(Math.random() * (max - min) + min);
+              id_comment += r;
+
+              var message = "Event Name: " + element2.name + " Event Condition: " + element2.operation + " " + element2.condition
+            
+             high_level = element2.name
+              comment = `
          {
              "id": "${id_comment}",
              "type": "comment",
@@ -511,46 +525,48 @@ ipc.on("FloWareConfiguration", async (event, flo,psmid) => {
              "y": ${global.y__},
              "wires": [[]]
          }`
-            comment = JSON.parse(comment)
-            elementi_analizzati.push(comment)
-     
-          //  global.y__ += parseInt((Math.random() * (200 - 100) + 100));
-          global.y__ +=50;
+              comment = JSON.parse(comment)
+              elementi_analizzati.push(comment)
 
-        }
-       });
+              //  global.y__ += parseInt((Math.random() * (200 - 100) + 100));
+              global.y__ += 50;
 
-         // console.log((flo[elementflo]["Operations"][element]["Operation Name"], flo[elementflo]["Operations"][element]["Service"]))
+            }
+          });
+
+          // console.log((flo[elementflo]["Operations"][element]["Operation Name"], flo[elementflo]["Operations"][element]["Service"]))
 
           if (flo[elementflo]["Operations"][element]["Service"] == "MQTT") {
-           
-            subm((flo[elementflo]["Operations"][element]["Data Type"]),(flo[elementflo]["Operations"][element]["Operation Name"]), (flo[elementflo]["Operations"][element]["specification"]["QoS"]), (flo[elementflo]["Operations"][element]["specification"]["Topic"]), (flo[elementflo]["Operations"][element]["specification"]["Server Broker"]), (flo[elementflo]["Operations"][element]["specification"]["Port"]));
+
+            subm(high_level, (flo[elementflo]["Operations"][element]["Data Type"]), (flo[elementflo]["Operations"][element]["Operation Name"]), (flo[elementflo]["Operations"][element]["specification"]["QoS"]), (flo[elementflo]["Operations"][element]["specification"]["Topic"]), (flo[elementflo]["Operations"][element]["specification"]["Server Broker"]), (flo[elementflo]["Operations"][element]["specification"]["Port"]));
           }
           else if (flo[elementflo]["Operations"][element]["Service"] == "UDP") {
 
-            set_udp(n, yy, (flo[elementflo]["Operations"][element]["Operation Name"]), global.inp);
+            set_udp(high_level, n, yy, (flo[elementflo]["Operations"][element]["Operation Name"]), global.inp);
           }
           else if (flo[elementflo]["Operations"][element]["Service"] == "TCP") {
 
-            set_tcp(n, yy, (flo[elementflo]["Operations"][element]["Operation Name"]), global.inp);
+            set_tcp(high_level, n, yy, (flo[elementflo]["Operations"][element]["Operation Name"]), global.inp);
           }
           else if (flo[elementflo]["Operations"][element]["Service"] == "WEBSOCKET") {
 
-            set_websocket(n, yy, (flo[elementflo]["Operations"][element]["Operation Name"]), global.inp);
+            set_websocket(high_level, n, yy, (flo[elementflo]["Operations"][element]["Operation Name"]), global.inp);
           }
           else if (flo[elementflo]["Operations"][element]["Service"] == "HTTP") {
 
-            sub_http((flo[elementflo]["Operations"][element]["Data Type"]),(flo[elementflo]["Operations"][element]["specification"]["Address"]),(flo[elementflo]["Operations"][element]["specification"]["Method"]),(flo[elementflo]["Operations"][element]["Operation Name"]),(flo[elementflo]["Operations"][element]["specification"]["Port"]));
+            sub_http(high_level,(flo[elementflo]["Operations"][element]["Data Type"]), (flo[elementflo]["Operations"][element]["specification"]["Address"]), (flo[elementflo]["Operations"][element]["specification"]["Method"]), (flo[elementflo]["Operations"][element]["Operation Name"]), (flo[elementflo]["Operations"][element]["specification"]["Port"]));
           }
           else if (flo[elementflo]["Operations"][element]["Service"] == "LoRa") {
 
-            set_lora(n, yy, (flo[elementflo]["Operations"][element]["Operation Name"]), global.inp);
+            set_lora(high_level,n, yy, (flo[elementflo]["Operations"][element]["Operation Name"]), global.inp);
           }
+        
         });
 
-     
+
       }
     }
+  }
   }
 
   var min = 1
@@ -605,7 +621,7 @@ ipc.on("FloWareConfiguration", async (event, flo,psmid) => {
   }
 
   elementi_analizzati = JSON.stringify(elementi_analizzati)
-//console.log(elementi_analizzati)
+  //console.log(elementi_analizzati)
   var random = parseInt(Math.random() * (10000 - 1) + 1)
   var paths = `${__dirname}/files`
   paths += random
@@ -623,8 +639,6 @@ ipc.on("FloWareConfiguration", async (event, flo,psmid) => {
       });
     }
   });
-
-
 
   RED.nodes.setFlows(JSON.parse(elementi_analizzati));
   appWindow = null; //not works for now
@@ -662,10 +676,9 @@ ipc.on("ping", (event, value) => {
 
 
 
-
-
-function create_colleg(node, datatype, x, y) {
- global.nodename = node.name
+function create_colleg(high_level,node, datatype, x, y) {
+  high_level=high_level
+  global.nodename = node.name
   var node = node;
   var encr;
   var min = 1
@@ -693,7 +706,6 @@ function create_colleg(node, datatype, x, y) {
 
 
     decr =
-
       `{
            "id": "${decrypt_id}",
         "type": "encrypt",
@@ -723,7 +735,120 @@ function create_colleg(node, datatype, x, y) {
     var id_template = `46dg574s.${r}`;
     var id_gauge = `a82ffb36.${r}`;
     var id_ui_group = `dca5gfd0.${r}`
+    var id_function = `eb57e9b2.${r}`
+    var id_change = `3e120eca.${r}`
+    var id_request_bpmn = `a7f924e5.${r}`
+    var id_response_bpmn = `3b966545.${r}`
+    var messageName = "messageName"
+    var message_name = `{\"${messageName}\":\"${high_level}\"}`
+    message_name = JSON.stringify(message_name)
+var change
+var function_event
+var request_bpmn
+var response_bpmn
 
+    if(high_level != undefined) {
+    change =
+      `{
+      "id":  "${id_change}",
+      "type": "change",
+      "z": "",
+      "name": "Set message",
+      "rules": [
+          {
+              "t": "set",
+              "p": "headers.content-type",
+              "pt": "msg",
+              "to": "application/json",
+              "tot": "str"
+          },
+          {
+              "t": "set",
+              "p": "payload",
+              "pt": "msg",
+              "to":  ${message_name},
+              "tot": "json"
+          }
+      ],
+      "action": "",
+      "property": "",
+      "from": "",
+      "to": "",
+      "reg": false,
+      "x": ${x + parseInt(900)},
+      "y":${y + parseInt(20)},
+      "wires": [
+          [
+            "${id_request_bpmn}"
+          ]
+      ]
+  }`
+
+    change = JSON.parse(change)
+
+   function_event =
+      `{
+      "id": "${id_function}",
+      "type": "function",
+      "z": "",
+      "name": "Develop the event function here",
+      "func": "return msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "initialize": "",
+      "finalize": "",
+      "libs": [],
+      "x": ${x + parseInt(800)},
+      "y": ${y - parseInt(20)},
+      "wires": [
+          [
+            "${id_change}"
+          ]
+      ]
+  }`
+
+    function_event = JSON.parse(function_event)
+    var code_path = "172.23.181.247:8080/engine-rest/message"
+   request_bpmn =
+      ` {
+      "id": "${id_request_bpmn}",
+      "type": "http request",
+      "z": "",
+      "name": "Http request to BPMN model",
+      "method": "POST",
+      "ret": "txt",
+      "paytoqs": "ignore",
+      "url": "${code_path}",
+      "tls": "",
+      "persist": false,
+      "proxy": "",
+      "authType": "",
+      "x": ${x + parseInt(1100)},
+      "y":${y - parseInt(20)},
+      "wires": [
+          [
+            "${id_response_bpmn}"
+          ]
+      ]
+  }`
+
+    request_bpmn = JSON.parse(request_bpmn)
+
+     response_bpmn =
+      `{
+      "id": "${id_response_bpmn}",
+      "type": "http response",
+      "z": "",
+      "name": "Response (200)",
+      "statusCode": "200",
+      "headers": {},
+      "x": ${x + parseInt(1400)},
+      "y":${y - parseInt(20)},
+      "wires": []
+    }`
+
+    response_bpmn = JSON.parse(response_bpmn)
+  }
     var ui_group =
       ` {
           "id": "${id_ui_group}",
@@ -752,7 +877,7 @@ function create_colleg(node, datatype, x, y) {
                       "complete": "payload",
                       "targetType": "msg",
                       "x": ${x + parseInt(610)},
-                      "y":${y - parseInt(20)},
+                      "y":${y - parseInt(40)},
                       "wires": []
                   }`
 
@@ -768,7 +893,7 @@ function create_colleg(node, datatype, x, y) {
       "syntax": "mustache",
       "template": "{{payload.value}}",
       "output": "str",
-       "x": ${x + parseInt(380)},
+       "x": ${x + parseInt(280)},
        "y":${y + parseInt(40)},
       "wires": [
         [
@@ -786,14 +911,14 @@ function create_colleg(node, datatype, x, y) {
                   "property": "payload",
                    "action": "obj",
                   "pretty": true,
-                 "x": ${x + parseInt(370)},
+                 "x": ${x + parseInt(270)},
                   "y":${y},
                   "wires": [
                       [
                        "${id_debug}",
                        "${id_gauge}",
+                       "${id_function}",
                        "${id_template}"
-  
                       ]
                   ]
               }`
@@ -869,8 +994,8 @@ function create_colleg(node, datatype, x, y) {
         ],
         "seg1": "",
         "seg2": "",
-       "x": ${x + parseInt(590)},
-        "y":${y - parseInt(60)},
+       "x": ${x + parseInt(500)},
+        "y":${y - parseInt(70)},
         "wires": []
       }`
 
@@ -882,6 +1007,7 @@ function create_colleg(node, datatype, x, y) {
       node.wires[0].push(id_json)
     }
 
+
     chart = JSON.parse(chart)
     debug = JSON.parse(debug)
     json = JSON.parse(json)
@@ -890,6 +1016,14 @@ function create_colleg(node, datatype, x, y) {
 
     global.array_config.push(gauge)
     global.array_config.push(json)
+
+    if(high_level!=undefined){
+    global.array_config.push(function_event)
+    global.array_config.push(response_bpmn)
+    global.array_config.push(request_bpmn)
+    global.array_config.push(change)
+    }
+
     global.array_config.push(debug)
     global.array_config.push(chart)
     global.array_config.push(template)
@@ -902,6 +1036,121 @@ function create_colleg(node, datatype, x, y) {
     var id_json = `sdf45dgd.${r}`
     var id_json2 = `hrt45gd.${r}`
     var id_ui_group = `dca5gfd0.${r}`
+
+    var id_function = `eb57e9b2.${r}`
+    var id_change = `3e120eca.${r}`
+    var id_request_bpmn = `a7f924e5.${r}`
+    var id_response_bpmn = `3b966545.${r}`
+    var messageName = "messageName"
+    var message_name = `{\"${messageName}\":\"${high_level}\"}`
+    message_name = JSON.stringify(message_name)
+var change
+var function_event
+var request_bpmn
+var response_bpmn
+
+    if(high_level != undefined) {
+    change =
+      `{
+      "id":  "${id_change}",
+      "type": "change",
+      "z": "",
+      "name": "Set message",
+      "rules": [
+          {
+              "t": "set",
+              "p": "headers.content-type",
+              "pt": "msg",
+              "to": "application/json",
+              "tot": "str"
+          },
+          {
+              "t": "set",
+              "p": "payload",
+              "pt": "msg",
+              "to":  ${message_name},
+              "tot": "json"
+          }
+      ],
+      "action": "",
+      "property": "",
+      "from": "",
+      "to": "",
+      "reg": false,
+      "x": ${x + parseInt(900)},
+      "y":${y + parseInt(20)},
+      "wires": [
+          [
+            "${id_request_bpmn}"
+          ]
+      ]
+  }`
+
+    change = JSON.parse(change)
+
+   function_event =
+      `{
+      "id": "${id_function}",
+      "type": "function",
+      "z": "",
+      "name": "Develop the event function here",
+      "func": "return msg;",
+      "outputs": 1,
+      "noerr": 0,
+      "initialize": "",
+      "finalize": "",
+      "libs": [],
+      "x": ${x + parseInt(800)},
+      "y": ${y - parseInt(20)},
+      "wires": [
+          [
+            "${id_change}"
+          ]
+      ]
+  }`
+
+    function_event = JSON.parse(function_event)
+    var code_path = "172.23.181.247:8080/engine-rest/message"
+   request_bpmn =
+      ` {
+      "id": "${id_request_bpmn}",
+      "type": "http request",
+      "z": "",
+      "name": "Http request to BPMN model",
+      "method": "POST",
+      "ret": "txt",
+      "paytoqs": "ignore",
+      "url": "${code_path}",
+      "tls": "",
+      "persist": false,
+      "proxy": "",
+      "authType": "",
+      "x": ${x + parseInt(1100)},
+      "y":${y - parseInt(20)},
+      "wires": [
+          [
+            "${id_response_bpmn}"
+          ]
+      ]
+  }`
+
+    request_bpmn = JSON.parse(request_bpmn)
+
+     response_bpmn =
+      `{
+      "id": "${id_response_bpmn}",
+      "type": "http response",
+      "z": "",
+      "name": "Response (200)",
+      "statusCode": "200",
+      "headers": {},
+      "x": ${x + parseInt(1400)},
+      "y":${y - parseInt(20)},
+      "wires": []
+    }`
+
+    response_bpmn = JSON.parse(response_bpmn)
+  }
 
     var ui_group =
       ` {
@@ -983,7 +1232,7 @@ function create_colleg(node, datatype, x, y) {
         "officon": "",
         "offcolor": "",
         "x": ${global.x__ + parseInt(110)},
-        "y":${global,y__ - parseInt(60)},
+        "y":${global, y__ - parseInt(60)},
         "wires": [
           [
           ]
@@ -1046,6 +1295,14 @@ function create_colleg(node, datatype, x, y) {
       if (global.encrypt_ == null) {
         node3_[0].wires[0].push(id_json)
         json.wires[0].push(id_text)
+        if(high_level!=undefined){
+          global.array_config.push(function_event)
+          global.array_config.push(response_bpmn)
+          global.array_config.push(request_bpmn)
+          global.array_config.push(change)
+          }
+
+          
       }
       else {
         node3_[0].wires[0].push(encr_id)
@@ -1058,6 +1315,14 @@ function create_colleg(node, datatype, x, y) {
 
         global.array_config.push(decr)
         global.array_config.push(json2)
+
+        if(high_level!=undefined){
+          global.array_config.push(function_event)
+          global.array_config.push(response_bpmn)
+          global.array_config.push(request_bpmn)
+          global.array_config.push(change)
+          }
+ 
       }
 
       global.array_config.push(node3_[0])
@@ -1082,21 +1347,28 @@ function create_colleg(node, datatype, x, y) {
       global.array_config.push(node2)
     }
 
+
     else if (node.type.includes("request")) {
-      var node2 = [];
-      node2 = node
-      node2.id = `8erw33f.${r}`
-      node2.type = node2.type.replace(/request/, "request");
-      var x_ = parseInt(node2.x) + parseInt(85)
-      if (global.encrypt_ == null) {
-        node2.x.push(x_)
-        node2.wires[0].push(id_text)
-        node2.wires[0].push(id_switch)
-      } else {
-        encr.wires[0].push(id_text)
-        encr.wires[0].push(id_switch)
+      if (node.name.includes("BPMN")) { }
+
+      else {
+        var node2 = [];
+        node2 = node
+        node2.id = `8erw33f.${r}`
+        node2.type = node2.type.replace(/request/, "request");
+        var x_ = parseInt(node2.x) + parseInt(85)
+        if (global.encrypt_ == null) {
+          var bb = x_.toString()
+          node2.x = bb
+          node2.wires[0].push(id_text)
+          node2.wires[0].push(id_json)
+          node2.wires[0].push(id_switch)
+        } else {
+          encr.wires[0].push(id_text)
+          encr.wires[0].push(id_switch)
+        }
+        global.array_config.push(node2)
       }
-      global.array_config.push(node2)
     }
 
     global.array_config.push(json)
@@ -1259,7 +1531,7 @@ function create_colleg(node, datatype, x, y) {
     var id_ui_group = `dca5gfd0.${r}`
 
 
-   
+
     var ui_group =
       ` {
           "id": "${id_ui_group}",
@@ -1447,7 +1719,7 @@ function create_colleg(node, datatype, x, y) {
       node2.type = node2.type.replace(/request/, "request");
       var x_ = parseInt(node2.x) + parseInt(85)
       if (global.encrypt_ == null) {
-        node2.x =(x_.toString())
+        node2.x = (x_.toString())
         node2.wires[0].push(id_text)
         node2.wires[0].push(id_switch)
       } else {
@@ -1461,9 +1733,6 @@ function create_colleg(node, datatype, x, y) {
     global.array_config.push(ui_text)
   }
 
-
-
-
   global.x__ = x;
   global.y__ = y + 150;
   if (global.encrypt_ != null) {
@@ -1475,8 +1744,8 @@ function create_colleg(node, datatype, x, y) {
 }
 
 
-function subm(datatype, node, qos, topic, broker, port) {
-  global.datatype=datatype
+function subm(high_level,datatype, node, qos, topic, broker, port) {
+  global.datatype = datatype
   //console.log("dalla funzione: ", node, qos, topic, broker, port)
   var min = 1
   var max = 999999
@@ -1533,13 +1802,13 @@ function subm(datatype, node, qos, topic, broker, port) {
   global.y__ = global.y__
   global.array_config.push(broker_)
 
-  create_colleg(node__, global.datatype, global.x__, global.y__)
- renderer_ = true
+  create_colleg(high_level,node__, global.datatype, global.x__, global.y__)
+  renderer_ = true
 
 }
 
 
-function sub_lora(deviceid, field, applid, key, element, port, n) {
+function sub_lora(high_level,deviceid, field, applid, key, element, port, n) {
   var appid = "22186c07."
   var min = 1
   var max = 999999
@@ -1572,7 +1841,7 @@ function sub_lora(deviceid, field, applid, key, element, port, n) {
   global.x__ = global.x__
   global.y__ = global.y__
 
-  create_colleg(device, global.datatype, global.x__, global.y__)
+  create_colleg(high_level,device, global.datatype, global.x__, global.y__)
   /*  serv = JSON.parse(serv) */
   // global.array_config.push(device)
   /*  global.array_config.push(serv) */
@@ -1585,7 +1854,9 @@ function sub_lora(deviceid, field, applid, key, element, port, n) {
   yy++;
 }
 
-function sub_http(datatype, path, method, name, port) {
+function sub_http(high_level,datatype, path, method, name, port) {
+  var high_level=high_level
+  console.log(high_level)
   ids = "35eb11d7."
   var min = 1
   var max = 999999
@@ -1642,8 +1913,8 @@ function sub_http(datatype, path, method, name, port) {
   global.array_config.push(inject)
   global.x__ = global.x__
   global.y__ = global.y__
-  global.inp =""
-  create_colleg(node_, datatype, global.x__, global.y__)
+  global.inp = ""
+  create_colleg(high_level,node_, datatype, global.x__, global.y__)
   // global.array_config.push(node_)
   var html = ""
   var code = ""
@@ -1652,7 +1923,7 @@ function sub_http(datatype, path, method, name, port) {
   renderer_ = true
 }
 
-function set_websocket(n, yy, element) {
+function set_websocket(high_level,n, yy, element) {
 
   if (n >= yy) {
     var config = document.getElementsByClassName("configurator" + n)
@@ -1672,8 +1943,8 @@ function set_websocket(n, yy, element) {
   return config[0].innerHTML += code
 }
 
-function sub_websocket(path, elem, n) {
- 
+function sub_websocket(high_level,path, elem, n) {
+
   var id_wsServer = "3ad61300."
   var min = 1
   var max = 999999
@@ -1710,7 +1981,7 @@ function sub_websocket(path, elem, n) {
   global.array_config.push(serv)
   global.x__ = global.x__
   global.y__ = global.y__
-  create_colleg(web, global.datatype, global.x__, global.y__)
+  create_colleg(high_level,web, global.datatype, global.x__, global.y__)
 
   var html = ""
   var code = ""
@@ -1720,7 +1991,7 @@ function sub_websocket(path, elem, n) {
   renderer_ = true
   yy++;
 }
-function set_tcp(n, yy, element) {
+function set_tcp(high_level,n, yy, element) {
 
   if (n >= yy) {
     var config = document.getElementsByClassName("configurator" + n)
@@ -1740,7 +2011,7 @@ function set_tcp(n, yy, element) {
   return config[0].innerHTML += code
 }
 
-function set_udp(n, yy, element) {
+function set_udp(high_level,n, yy, element) {
 
   var en = n;
   if (n >= yy) {
@@ -1792,7 +2063,7 @@ function sub_udp(port, elem, n) {
   udp = JSON.parse(udp)
   global.x__ = global.x__
   global.y__ = global.y__
-  create_colleg(udp, global.datatype, global.x__, global.y__)
+  create_colleg(high_level,udp, global.datatype, global.x__, global.y__)
   // global.array_config.push(udp)
   var html = ""
   var code = ""
@@ -1832,7 +2103,7 @@ function sub_tcp(port, elem, n) {
   tcp = JSON.parse(tcp)
   global.x__ = global.x__
   global.y__ = global.y__
-  create_colleg(tcp, global.datatype, global.x__, global.y__)
+  create_colleg(high_level,tcp, global.datatype, global.x__, global.y__)
 
   var ele = document.getElementsByClassName("configurator" + n);
   var html = ""
